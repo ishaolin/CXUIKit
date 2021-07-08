@@ -1,0 +1,63 @@
+//
+//  CXUIFontName.h
+//  Pods
+//
+//  Created by wshaolin on 2017/6/21.
+//
+//
+
+#import <Foundation/Foundation.h>
+#import "CXUIKitDefines.h"
+
+typedef NSString *CXUIFontName;
+
+typedef NS_ENUM(NSUInteger, CXUIFontStyle){
+    CXUIFontStyleNormal,
+    CXUIFontStyleBold,
+    CXUIFontStyleItalic
+};
+
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNamePingFangHK_Ultralight;
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNamePingFangHK_Light;
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNamePingFangHK_Thin;
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNamePingFangHK_Regular;
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNamePingFangHK_Medium;
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNamePingFangHK_Semibold;
+
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNamePingFangSC_Ultralight;
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNamePingFangSC_Light;
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNamePingFangSC_Thin;
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNamePingFangSC_Regular;
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNamePingFangSC_Medium;
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNamePingFangSC_Semibold;
+
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNamePingFangTC_Ultralight;
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNamePingFangTC_Light;
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNamePingFangTC_Thin;
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNamePingFangTC_Regular;
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNamePingFangTC_Medium;
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNamePingFangTC_Semibold;
+
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNameHelvetica_;
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNameHelvetica_Bold;
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNameHelvetica_BoldOblique;
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNameHelvetica_Light;
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNameHelvetica_LightOblique;
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNameHelvetica_Oblique;
+
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNameHelveticaNeue_;
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNameHelveticaNeue_Bold;
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNameHelveticaNeue_BoldItalic;
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNameHelveticaNeue_CondensedBlack;
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNameHelveticaNeue_CondensedBold;
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNameHelveticaNeue_Italic;
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNameHelveticaNeue_Light;
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNameHelveticaNeue_LightItalic;
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNameHelveticaNeue_Medium;
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNameHelveticaNeue_MediumItalic;
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNameHelveticaNeue_UltraLight;
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNameHelveticaNeue_UltraLightItalic;
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNameHelveticaNeue_Thin;
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNameHelveticaNeue_ThinItalic;
+
+CX_UIKIT_EXTERN CXUIFontStyle CXUIFontStyleFromFontName(CXUIFontName fontName);
