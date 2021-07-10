@@ -61,10 +61,6 @@
     }
     
     switch (pushType) {
-        case CXSchemePushFromCurrentVC:{
-            [self pushViewController:viewController animated:animated];
-        }
-            break;
         case CXSchemePushAfterDestroyCurrentVC:{
             if(self.viewControllers.count <= 1){
                 [self pushViewController:viewController animated:animated];
@@ -82,7 +78,9 @@
             }
         }
             break;
+        case CXSchemePushFromCurrentVC:
         default:
+            [self pushViewController:viewController animated:animated];
             break;
     }
 }

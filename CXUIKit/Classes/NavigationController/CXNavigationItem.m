@@ -8,7 +8,7 @@
 
 #import "CXNavigationItem.h"
 #import "CXNavigationConfig.h"
-#import "CXImageUtil.h"
+#import "CXImageUtils.h"
 
 @interface CXNavigationItem() {
     CXNavigationConfig *_config;
@@ -132,7 +132,7 @@
     
     [self removeObserverForKeyPathsWithObjects:_leftBarButtonItems];
     
-    _leftBarButtonItems = leftBarButtonItems;
+    _leftBarButtonItems = [leftBarButtonItems copy];
     
     [self addObserverForKeyPathsWithObjects:_leftBarButtonItems];
     
@@ -150,7 +150,7 @@
     
     [self removeObserverForKeyPathsWithObjects:_rightBarButtonItems];
     
-    _rightBarButtonItems = rightBarButtonItems;
+    _rightBarButtonItems = [rightBarButtonItems copy];
     
     [self addObserverForKeyPathsWithObjects:_rightBarButtonItems];
     

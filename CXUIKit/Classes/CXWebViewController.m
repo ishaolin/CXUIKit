@@ -54,7 +54,7 @@
     [self layoutWebView:_webView];
     [self registerBridgeHandlers];
     
-    if([CXStringUtil isHTTPURL:_url]){
+    if([CXStringUtils isHTTPURL:_url]){
         [self loadJavaScripts];
         NSURL *URL = [self URLWithURLString:_url params:_params];
         [self loadRequestWithURL:URL];

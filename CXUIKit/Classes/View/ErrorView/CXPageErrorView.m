@@ -9,8 +9,9 @@
 #import "UIColor+CXExtensions.h"
 #import "UIFont+CXExtensions.h"
 #import "UIButton+CXExtensions.h"
-#import "CXImageUtil.h"
+#import "CXImageUtils.h"
 #import "CXUIUtils.h"
+#import "CXStringBounding.h"
 
 @implementation CXPageErrorView
 
@@ -130,7 +131,9 @@
     
     CGFloat textLabel_X = CX_MARGIN(20.0);
     CGFloat textLabel_W = CGRectGetWidth(self.bounds) - textLabel_X * 2;
-    CGFloat textLabel_H = [_textLabel.text boundingRectWithSize:CGSizeMake(textLabel_W, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : _textLabel.font} context:nil].size.height + 20.0;
+    CGFloat textLabel_H = [CXStringBounding bounding:_textLabel.text
+                                        rectWithSize:CGSizeMake(textLabel_W, MAXFLOAT)
+                                                font:_textLabel.font].size.height + 20.0;
     
     CGFloat imageView_W = CX_MARGIN_MIN(205.0);
     CGFloat imageView_H = imageView_W;

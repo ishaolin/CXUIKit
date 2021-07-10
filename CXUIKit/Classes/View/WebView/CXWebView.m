@@ -125,7 +125,7 @@ static inline NSString *_CXWebViewBridgeReadyScript(){
         @strongify(self);
         if([self.delegate respondsToSelector:@selector(webView:didLongPressImage:)]){
             NSString *imageData = [data cx_stringForKey:@"image"];
-            if([CXStringUtil isHTTPURL:imageData] || [imageData hasPrefix:@"data:image/"]){
+            if([CXStringUtils isHTTPURL:imageData] || [imageData hasPrefix:@"data:image/"]){
                 [CXActionSheetUtils showActionSheetWithConfigBlock:^(CXActionSheetControllerConfigModel *config) {
                     config.window = self.window;
                     config.buttonTitles = @[@"保存图片"];
@@ -340,7 +340,7 @@ static inline NSString *_CXWebViewBridgeReadyScript(){
 }
 
 - (void)writeWebViewImageToSavedPhotosAlbum:(NSString *)webViewImageData{
-    if([CXStringUtil isHTTPURL:webViewImageData]){
+    if([CXStringUtils isHTTPURL:webViewImageData]){
         [CXWebImage downloadImageWithURL:webViewImageData completion:^(UIImage *image, NSData *data) {
             [self.delegate webView:self didLongPressImage:image];
         }];

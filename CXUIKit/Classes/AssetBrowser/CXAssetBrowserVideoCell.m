@@ -7,7 +7,7 @@
 
 #import "CXAssetBrowserVideoCell.h"
 #import "CXVideoPlayer.h"
-#import "CXImageUtil.h"
+#import "CXImageUtils.h"
 #import "UIScreen+CXExtensions.h"
 #import "UIColor+CXExtensions.h"
 #import <SDWebImage/UIImageView+WebCache.h>

@@ -28,9 +28,15 @@
         if(actionHandler){
             _actionHandler = [actionHandler copy];
         }
+        
+        [self config];
     }
     
     return self;
+}
+
+- (void)config{
+    
 }
 
 - (void)invokeActionForContext:(id)context{

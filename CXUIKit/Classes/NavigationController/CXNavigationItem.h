@@ -50,12 +50,12 @@
 /*!
  *  @brief 设置leftBarButtonItems且count大于1时，leftBarButtonItem会被设置为nil, leftBarButtonItems最多2个，多于2个时设置失败
  */
-@property (nonatomic, strong) NSArray<CXBarButtonItem *> *leftBarButtonItems;
+@property (nonatomic, copy) NSArray<CXBarButtonItem *> *leftBarButtonItems;
 
 /*!
  *  @brief 设置rightBarButtonItems且count大于1时，rightBarButtonItem会被设置为nil，rightBarButtonItems最多2个，多于2个时设置失败
  */
-@property (nonatomic, strong) NSArray<CXBarButtonItem *> *rightBarButtonItems;
+@property (nonatomic, copy) NSArray<CXBarButtonItem *> *rightBarButtonItems;
 
 /*!
  *  @brief 更新样式

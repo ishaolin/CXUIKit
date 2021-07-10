@@ -11,8 +11,6 @@
 
 - (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style{
     if(self = [super initWithFrame:frame style:style]){
-        self.backgroundView = nil;
-        self.backgroundColor = [UIColor clearColor];
         self.separatorStyle = UITableViewCellSeparatorStyleNone;
         self.showsVerticalScrollIndicator = NO;
         self.showsHorizontalScrollIndicator = NO;
@@ -26,6 +24,15 @@
     }
     
     return self;
+}
+
+- (void)setBackgroundColor:(UIColor *)backgroundColor{
+    if(!backgroundColor){
+        return;
+    }
+    
+    self.backgroundView = nil;
+    [super setBackgroundColor:backgroundColor];
 }
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event{

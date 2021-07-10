@@ -11,6 +11,7 @@
 #import "UIColor+CXExtensions.h"
 #import "UIScreen+CXExtensions.h"
 #import <CXFoundation/CXFoundation.h>
+#import "CXStringBounding.h"
 
 @interface CXAlertPanel () {
     UILabel *_titleLabel;
@@ -200,10 +201,9 @@
             // 有message时title最多显示三行
             size.height = _titleLabel.font.lineHeight * 3;
         }
-        titleLabel_H = [self.title boundingRectWithSize:size
-                                                options:NSStringDrawingUsesLineFragmentOrigin
-                                             attributes:@{NSFontAttributeName : _titleLabel.font}
-                                                context:nil].size.height;
+        titleLabel_H = [CXStringBounding bounding:self.title
+                                     rectWithSize:size
+                                             font:_titleLabel.font].size.height;
         CGFloat titleLabel_MH = maxHeight - titleLabel_Y - vLineView_H - titleLabel_Y;
         if(titleLabel_H > titleLabel_MH){
             titleLabel_H = titleLabel_MH;
@@ -217,10 +217,9 @@
     CGFloat messageView_MH = maxHeight - messageView_Y - vLineView_H - titleLabel_Y;
     CGFloat messageView_H = 0;
     if(!CXStringIsEmpty(self.message)){
-        messageView_H = [self.message boundingRectWithSize:CGSizeMake(messageView_W, CGFLOAT_MAX)
-                                                   options:NSStringDrawingUsesLineFragmentOrigin
-                                                attributes:@{NSFontAttributeName : _messageView.font}
-                                                   context:nil].size.height;
+        messageView_H = [CXStringBounding bounding:self.message
+                                      rectWithSize:CGSizeMake(messageView_W, CGFLOAT_MAX)
+                                              font:_messageView.font].size.height;
         // 控制在合适的范围内显示
         if(messageView_H > messageView_MH){
             messageView_H = messageView_MH;

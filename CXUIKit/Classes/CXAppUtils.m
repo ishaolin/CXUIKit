@@ -1,17 +1,21 @@
 //
-//  CXAppUtil.m
+//  CXAppUtils.m
 //  Pods
 //
 //  Created by wshaolin on 2019/1/28.
 //
 
-#import "CXAppUtil.h"
+#import "CXAppUtils.h"
 #import <UIKit/UIKit.h>
 
-@implementation CXAppUtil
+@implementation CXAppUtils
 
-+ (void)openOSSettingPage{
-    [self openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
++ (void)openSettingsPage{
+    [self openSettingsPageWithCompletion:nil];
+}
+
++ (void)openSettingsPageWithCompletion:(void (^)(BOOL))completion{
+    [self openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] completion:completion];
 }
 
 + (void)openURL:(NSURL *)URL{

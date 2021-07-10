@@ -20,7 +20,7 @@
         _completion = [completion copy];
         _params = [NSMutableDictionary dictionary];
         
-        if([CXStringUtil isHTTPURL:URL.absoluteString]){
+        if([CXStringUtils isHTTPURL:URL.absoluteString]){
             _module = CXSchemeBusinessModuleApplication;
             _page = CXSchemeBusinessWebPage;
             _HTTPURL = URL.absoluteString;

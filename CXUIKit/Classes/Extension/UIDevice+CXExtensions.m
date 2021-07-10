@@ -11,7 +11,7 @@
 #import <CXFoundation/CXFoundation.h>
 #import "UIScreen+CXExtensions.h"
 #import "CXAlertControllerUtils.h"
-#import "CXAppUtil.h"
+#import "CXAppUtils.h"
 #import <sys/mount.h>
 #import <sys/sysctl.h>
 #import <mach/mach.h>
@@ -35,14 +35,14 @@
     if([lock tryLock]){
         NSURL *url = [NSURL cx_validURL:[NSString stringWithFormat:@"tel:%@", phone]];
         if(@available(iOS 10.2, *)){
-            [CXAppUtil openURL:url];
+            [CXAppUtils openURL:url];
         }else{
             [CXAlertControllerUtils showAlertWithConfigBlock:^(CXAlertControllerConfigModel *config) {
                 config.title = phone;
                 config.buttonTitles = @[@"取消", @"呼叫"];
             } completion:^(NSUInteger buttonIndex) {
                 if (buttonIndex == 1) {
-                    [CXAppUtil openURL:url];
+                    [CXAppUtils openURL:url];
                 }
             }];
         }

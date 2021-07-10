@@ -8,7 +8,7 @@
 #import "CXVideoPlayer.h"
 #import <AVFoundation/AVFoundation.h>
 #import <CXFoundation/CXFoundation.h>
-#import "CXImageUtil.h"
+#import "CXImageUtils.h"
 #import "UIColor+CXExtensions.h"
 #import "CXVideoPlayControl.h"
 #import "UIScreen+CXExtensions.h"

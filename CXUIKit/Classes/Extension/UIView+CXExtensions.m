@@ -8,6 +8,18 @@
 #import "UIView+CXExtensions.h"
 #import <objc/runtime.h>
 
+@interface UIView (CXExtensions)
+
+@property (nonatomic, assign) CGRect cx_roundedRect;
+@property (nonatomic, assign) UIRectCorner cx_roundedCorners;
+@property (nonatomic, assign) CGFloat cx_roundedCornerRadii;
+
+@property (nonatomic, assign) CXShadowOptions cx_shadowOptions;
+@property (nonatomic, assign) CGSize cx_shadowOffset;
+@property (nonatomic, assign) CGFloat cx_shadowRadius;
+
+@end
+
 @implementation UIView (CXExtensions)
 
 - (UIImage *)cx_image{
@@ -33,81 +45,72 @@
     return viewController;
 }
 
+#pragma mark - rounded corner
+
 - (void)cx_roundedCornerRadii:(CGFloat)cornerRadii{
-    [self cx_roundedByCorners:UIRectCornerAllCorners cornerRadii:cornerRadii];
+    [self cx_roundedByCorners:UIRectCornerAllCorners
+                  cornerRadii:cornerRadii];
 }
 
-- (void)cx_roundedByCorners:(UIRectCorner)corners cornerRadii:(CGFloat)cornerRadii{
-    [self cx_roundedRect:self.bounds byRoundingCorners:corners cornerRadii:cornerRadii];
+- (void)cx_roundedByCorners:(UIRectCorner)corners
+                cornerRadii:(CGFloat)cornerRadii{
+    [self cx_roundedRect:self.bounds
+       byRoundingCorners:corners
+             cornerRadii:cornerRadii];
 }
 
-- (void)cx_roundedRect:(CGRect)rect byRoundingCorners:(UIRectCorner)corners cornerRadii:(CGFloat)cornerRadii{
-    if([self cx_shouldRoundedRect:rect byRoundingCorners:corners cornerRadii:cornerRadii]){
+- (void)cx_roundedRect:(CGRect)rect
+     byRoundingCorners:(UIRectCorner)corners
+           cornerRadii:(CGFloat)cornerRadii{
+    if([self cx_shouldRoundedRect:rect
+                byRoundingCorners:corners
+                      cornerRadii:cornerRadii]){
         CAShapeLayer *shapeLayer = [CAShapeLayer layer];
-        UIBezierPath *bezierPath = [UIBezierPath bezierPathWithRoundedRect:rect byRoundingCorners:corners cornerRadii:CGSizeMake(cornerRadii, cornerRadii)];
+        UIBezierPath *bezierPath = [UIBezierPath bezierPathWithRoundedRect:rect
+                                                         byRoundingCorners:corners
+                                                               cornerRadii:CGSizeMake(cornerRadii, cornerRadii)];
         shapeLayer.path = bezierPath.CGPath;
         self.layer.mask = shapeLayer;
-        [self cx_setRoundedRect:rect corners:corners cornerRadii:cornerRadii];
+        self.cx_roundedRect = rect;
+        self.cx_roundedCorners = corners;
+        self.cx_roundedCornerRadii = cornerRadii;
     }
 }
 
-- (BOOL)cx_shouldRoundedRect:(CGRect)rect byRoundingCorners:(UIRectCorner)corners cornerRadii:(CGFloat)cornerRadii{
-    if(!CGRectEqualToRect(rect, CGRectZero)){
-        CGRect oldRect = [self cx_roundedRect];
-        UIRectCorner oldCorners = [self cx_roundedCorners];
-        CGFloat oldCornerRadii = [self cx_roundedCornerRadii];
-        
-        return !(CGRectEqualToRect(oldRect, rect) &&
-                 oldCorners == corners &&
-                 oldCornerRadii == cornerRadii);
+- (BOOL)cx_shouldRoundedRect:(CGRect)rect
+           byRoundingCorners:(UIRectCorner)corners
+                 cornerRadii:(CGFloat)cornerRadii{
+    if(CGRectEqualToRect(rect, CGRectZero)){
+        return NO;
     }
     
-    return NO;
+    if(CGRectEqualToRect(rect, self.cx_roundedRect) &&
+       corners == self.cx_roundedCorners &&
+       cornerRadii == self.cx_roundedCornerRadii){
+        return NO;
+    }
+    
+    return YES;
 }
 
-- (void)cx_setRoundedRect:(CGRect)rect corners:(UIRectCorner)corners cornerRadii:(CGFloat)cornerRadii{
-    [self cx_setRoundedRect:rect];
-    [self cx_setRoundedCorners:corners];
-    [self cx_setRoundedCornerRadii:cornerRadii];
-}
-
-- (void)cx_setRoundedRect:(CGRect)rect{
-    NSValue *value = [NSValue valueWithCGRect:rect];
-    objc_setAssociatedObject(self, @selector(cx_roundedRect), value, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (void)cx_setRoundedCorners:(UIRectCorner)corners{
-    objc_setAssociatedObject(self, @selector(cx_roundedCorners), @(corners), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (void)cx_setRoundedCornerRadii:(CGFloat)cornerRadii{
-    objc_setAssociatedObject(self, @selector(cx_roundedCornerRadii), @(cornerRadii), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (CGRect)cx_roundedRect{
-    return [objc_getAssociatedObject(self, _cmd) CGRectValue];
-}
-
-- (UIRectCorner)cx_roundedCorners{
-    return (UIRectCorner)[objc_getAssociatedObject(self, _cmd) intValue];
-}
-
-- (CGFloat)cx_roundedCornerRadii{
-    return [objc_getAssociatedObject(self, _cmd) floatValue];
-}
+#pragma mark - shadow
 
 - (void)cx_addShadow{
     [self cx_addShadowByOption:CXShadowAll];
 }
 
 - (void)cx_addShadowByOption:(CXShadowOptions)options{
-    [self cx_addShadowByOption:options shadowOffset:CGSizeZero shadowRadius:5.0];
+    [self cx_addShadowByOption:options
+                  shadowOffset:CGSizeZero
+                  shadowRadius:5.0];
 }
 
 - (void)cx_addShadowByOption:(CXShadowOptions)options
                 shadowOffset:(CGSize)shadowOffset
                 shadowRadius:(CGFloat)shadowRadius{
-    if(![self cx_shouldShadowByOption:options shadowOffset:shadowOffset shadowRadius:shadowRadius]){
+    if(![self cx_shouldShadowByOption:options
+                         shadowOffset:shadowOffset
+                         shadowRadius:shadowRadius]){
         return;
     }
     
@@ -161,43 +164,71 @@
     }
     
     self.layer.shadowPath = shadowPath.CGPath;
-    [self cx_setOptions:options shadowOffset:shadowOffset shadowRadius:shadowRadius];
+    self.cx_shadowOptions = options;
+    self.cx_shadowOffset = shadowOffset;
+    self.cx_shadowRadius = shadowRadius;
 }
 
-- (BOOL)cx_shouldShadowByOption:(CXShadowOptions)options shadowOffset:(CGSize)shadowOffset shadowRadius:(CGFloat)shadowRadius{
-    if(shadowRadius > 0){
-        CXShadowOptions oldOptions = [self cx_shadowoptions];
-        CGSize oldShadowOffset = [self cx_shadowOffset];
-        CGFloat oldShadowRadius = [self cx_shadowRadius];
-        return !(oldOptions == options &&
-                 CGSizeEqualToSize(oldShadowOffset, shadowOffset) &&
-                 oldShadowRadius == shadowRadius);
+- (BOOL)cx_shouldShadowByOption:(CXShadowOptions)options
+                   shadowOffset:(CGSize)shadowOffset
+                   shadowRadius:(CGFloat)shadowRadius{
+    if(shadowRadius <= 0){
+        return NO;
     }
     
-    return NO;
+    if(options == self.cx_shadowOptions &&
+       CGSizeEqualToSize(shadowOffset, self.cx_shadowOffset) &&
+       shadowRadius == self.cx_shadowRadius){
+        return NO;
+    }
+    
+    return YES;
 }
 
-- (void)cx_setOptions:(CXShadowOptions)options shadowOffset:(CGSize)shadowOffset shadowRadius:(CGFloat)shadowRadius{
-    [self cx_setShadowOptions:options];
-    [self cx_setShadowOffset:shadowOffset];
-    [self cx_setShadowRadius:shadowRadius];
+#pragma mark - property setter
+
+- (void)setCx_roundedRect:(CGRect)roundedRect{
+    NSValue *value = [NSValue valueWithCGRect:roundedRect];
+    [self objc_setAssociatedObject:value forKey:@selector(cx_roundedRect)];
 }
 
-- (void)cx_setShadowOptions:(CXShadowOptions)options{
-    objc_setAssociatedObject(self, @selector(cx_shadowoptions), @(options), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+- (void)setCx_roundedCorners:(UIRectCorner)roundedCorners{
+    [self objc_setAssociatedObject:@(roundedCorners) forKey:@selector(cx_roundedCorners)];
 }
 
-- (void)cx_setShadowOffset:(CGSize)shadowOffset{
+- (void)setCx_roundedCornerRadii:(CGFloat)roundedCornerRadii{
+    [self objc_setAssociatedObject:@(roundedCornerRadii) forKey:@selector(cx_roundedCornerRadii)];
+}
+
+- (void)setCx_shadowOptions:(CXShadowOptions)shadowOptions{
+    [self objc_setAssociatedObject:@(shadowOptions) forKey:@selector(cx_shadowoptions)];
+}
+
+- (void)setCx_shadowOffset:(CGSize)shadowOffset{
     NSValue *value = [NSValue valueWithCGSize:shadowOffset];
-    objc_setAssociatedObject(self, @selector(cx_shadowOffset), value, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [self objc_setAssociatedObject:value forKey:@selector(cx_shadowOffset)];
 }
 
-- (void)cx_setShadowRadius:(CGFloat)shadowRadius{
-    objc_setAssociatedObject(self, @selector(cx_shadowRadius), @(shadowRadius), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+- (void)setCx_shadowRadius:(CGFloat)shadowRadius{
+    [self objc_setAssociatedObject:@(shadowRadius) forKey:@selector(cx_shadowRadius)];
 }
 
-- (CXShadowOptions)cx_shadowoptions{
-    return (CXShadowOptions)[objc_getAssociatedObject(self, _cmd) intValue];
+#pragma mark - property getter
+
+- (CGRect)cx_roundedRect{
+    return [objc_getAssociatedObject(self, _cmd) CGRectValue];
+}
+
+- (UIRectCorner)cx_roundedCorners{
+    return (UIRectCorner)[objc_getAssociatedObject(self, _cmd) unsignedIntegerValue];
+}
+
+- (CGFloat)cx_roundedCornerRadii{
+    return (UIRectCorner)[objc_getAssociatedObject(self, _cmd) doubleValue];
+}
+
+- (CXShadowOptions)cx_shadowOptions{
+    return (CXShadowOptions)[objc_getAssociatedObject(self, _cmd) unsignedIntegerValue];
 }
 
 - (CGSize)cx_shadowOffset{
@@ -205,7 +236,13 @@
 }
 
 - (CGFloat)cx_shadowRadius{
-    return [objc_getAssociatedObject(self, _cmd) floatValue];
+    return [objc_getAssociatedObject(self, _cmd) doubleValue];
+}
+
+#pragma mark - setAssociatedObject
+
+- (void)objc_setAssociatedObject:(id)value forKey:(const void *)key{
+    objc_setAssociatedObject(self, key, value, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end

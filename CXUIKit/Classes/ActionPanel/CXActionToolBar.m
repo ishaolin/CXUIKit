@@ -11,6 +11,7 @@
 #import <SDWebImage/UIButton+WebCache.h>
 #import "UIFont+CXExtensions.h"
 #import <CXFoundation/CXFoundation.h>
+#import "CXStringBounding.h"
 
 @interface CXActionToolBar (){
     NSMutableArray<CXActionToolBarItemNode *> *_itemNodes;
@@ -154,10 +155,13 @@
     
     [itemButton setTitle:itemNode.title forState:UIControlStateNormal];
     
-    if(itemNode.imageURL){
-        [itemButton sd_setImageWithURL:[NSURL URLWithString:itemNode.imageURL] forState:UIControlStateNormal placeholderImage:itemNode.image];
-    }else{
-        [itemButton setImage:itemNode.image forState:UIControlStateNormal];
+    if([itemNode.image isKindOfClass:[UIImage class]]){
+        [itemButton setImage:(UIImage *)itemNode.image forState:UIControlStateNormal];
+    }else if([itemNode.image isKindOfClass:[NSString class]]){
+        NSURL *url =  [NSURL cx_validURL:itemNode.image];
+        if(url){
+            [itemButton sd_setImageWithURL:url forState:UIControlStateNormal];
+        }
     }
     
     itemButton.enabled = itemNode.isEnabled;
@@ -223,9 +227,11 @@
         }
         
         [_itemNodes enumerateObjectsUsingBlock:^(CXActionToolBarItemNode * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            CGFloat width = [obj.title boundingRectWithSize:CGSizeMake(self.bounds.size.width * 0.4, self->_style.itemHeight) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : font} context:nil].size.width;
+            CGFloat width = [CXStringBounding bounding:obj.title
+                                          rectWithSize:CGSizeMake(self.bounds.size.width * 0.4, self->_style.itemHeight)
+                                                  font:font].size.width;
             if(obj.image){
-                width += obj.image.size.width + 5.0;
+                width += obj.imageSize.width + 5.0;
             }
             
             width += 30.0;

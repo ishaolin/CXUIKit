@@ -8,6 +8,7 @@
 #import "UIImageView+CXExtensions.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "CXWebImage.h"
+#import <CXFoundation/CXFoundation.h>
 
 @implementation UIImageView (CXExtensions)
 
@@ -23,9 +24,13 @@
 - (void)cx_setImageWithURL:(NSString *)URL
           placeholderImage:(UIImage *)placeholder
                 completion:(CXWebImageCompletionBlock)completion{
-    [self sd_setImageWithURL:[NSURL URLWithString:URL] placeholderImage:placeholder completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-        !completion ?: completion(image);
-    }];
+    if([CXStringUtils isHTTPURL:URL]){
+        [self sd_setImageWithURL:[NSURL URLWithString:URL] placeholderImage:placeholder completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            !completion ?: completion(image);
+        }];
+    }else{
+        LOG_WARN(@"Image url is invalid: @%", URL);
+    }
 }
 
 - (void)cx_setImageWithURLArray:(NSArray<NSString *> *)URLArray

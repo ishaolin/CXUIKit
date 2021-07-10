@@ -9,6 +9,7 @@
 #import "UIFont+CXExtensions.h"
 #import "UIView+CXExtensions.h"
 #import "UIImage+CXExtensions.h"
+#import "CXStringBounding.h"
 
 static const CGFloat CXPopActionPanelOuterEdge = 5.0;
 
@@ -218,10 +219,9 @@ typedef NS_ENUM(NSInteger, CXPopActionPanelArrowDirection){
             imageWidth = obj.image.size.width;
         }
         
-        CGSize size = [obj.title boundingRectWithSize:CGSizeMake(maxWidth, self.rowHeight)
-                                              options:NSStringDrawingUsesLineFragmentOrigin
-                                           attributes:@{NSFontAttributeName : self.titleFont}
-                                              context:nil].size;
+        CGSize size = [CXStringBounding bounding:obj.title
+                                    rectWithSize:CGSizeMake(maxWidth, self.rowHeight)
+                                            font:self.titleFont].size;
         
         itemMaxWidth = MAX(itemMaxWidth, imageWidth + size.width);
     }];

@@ -1,5 +1,5 @@
 //
-//  CXImageUtil.h
+//  CXImageUtils.h
 //  Pods
 //
 //  Created by wshaolin on 2019/1/25.
@@ -11,7 +11,7 @@
 
 typedef void(^CXImageBase64CompletionBlock)(NSArray<NSString *> *base64Images);
 
-@interface CXImageUtil : NSObject
+@interface CXImageUtils : NSObject
 
 /**
  * base64 图片转换，转换过程中会进行压缩（质量和尺寸，compressMaxQuality = 300000，表示质量上限为300K）

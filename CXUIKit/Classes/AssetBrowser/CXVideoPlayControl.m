@@ -8,7 +8,7 @@
 #import "CXVideoPlayControl.h"
 #import "UIFont+CXExtensions.h"
 #import "UIColor+CXExtensions.h"
-#import "CXImageUtil.h"
+#import "CXImageUtils.h"
 #import <CXFoundation/CXFoundation.h>
 
 @interface CXVideoPlayControl () {

@@ -10,6 +10,7 @@
 #import "UIColor+CXExtensions.h"
 #import "UIScreen+CXExtensions.h"
 #import <CXFoundation/CXFoundation.h>
+#import "CXStringBounding.h"
 
 @interface CXActionSheetPanel () {
     UIView *_titleView;
@@ -34,9 +35,9 @@
         [self addSubview:_titleView];
         
         _titleLabel = [[UILabel alloc] init];
-        _titleLabel.font = CX_PingFangSC_RegularFont(13.0);
+        _titleLabel.font = CX_PingFangSC_RegularFont(14.0);
         _titleLabel.textAlignment = NSTextAlignmentCenter;
-        _titleLabel.textColor = CXHexIColor(0x999999);
+        _titleLabel.textColor = CXHexIColor(0x888888);
         _titleLabel.numberOfLines = 0;
         [_titleView addSubview:_titleLabel];
         
@@ -107,8 +108,8 @@
 }
 
 - (void)layoutForSupperRect:(CGRect)rect{
-    CGFloat titleLabel_X = 10.0;
-    CGFloat titleLabel_Y = 10.0;
+    CGFloat titleLabel_X = 15.0;
+    CGFloat titleLabel_Y = 16.0;
     CGFloat titleLabel_W = CGRectGetWidth(rect) - titleLabel_X * 2;
     CGFloat titleLabel_H = 0;
     if(CXStringIsEmpty(self.title)){
@@ -116,10 +117,9 @@
     }else{
         // 最多显示两行title
         CGSize size = CGSizeMake(titleLabel_W, _titleLabel.font.lineHeight * 2);
-        titleLabel_H = [self.title boundingRectWithSize:size
-                                                options:NSStringDrawingUsesLineFragmentOrigin
-                                             attributes:@{NSFontAttributeName : _titleLabel.font}
-                                                context:nil].size.height;
+        titleLabel_H = [CXStringBounding bounding:self.title
+                                     rectWithSize:size
+                                             font:_titleLabel.font].size.height;
     }
     _titleLabel.frame = (CGRect){titleLabel_X, titleLabel_Y, titleLabel_W, titleLabel_H};
     
@@ -190,7 +190,7 @@
     CGFloat lineView_X = 0;
     CGFloat lineView_Y = 0;
     CGFloat lineView_W = CGRectGetWidth(self.bounds);
-    CGFloat lineView_H = 0.75;
+    CGFloat lineView_H = 0.5;
     _lineView.frame = (CGRect){lineView_X, lineView_Y, lineView_W, lineView_H};
 }
 

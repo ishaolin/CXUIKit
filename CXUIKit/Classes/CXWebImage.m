@@ -91,7 +91,7 @@ typedef NS_ENUM(NSInteger, CXImageClipType) {
     
     NSMutableArray<NSString *> *validUrls = [NSMutableArray array];
     [imageUrls enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if([CXStringUtil isHTTPURL:obj]){
+        if([CXStringUtils isHTTPURL:obj]){
             [validUrls addObject:obj];
         }
     }];

@@ -1,14 +1,14 @@
 //
-//  CXImageUtil.m
+//  CXImageUtils.m
 //  Pods
 //
 //  Created by wshaolin on 2019/1/25.
 //
 
-#import "CXImageUtil.h"
+#import "CXImageUtils.h"
 #import <CXFoundation/CXFoundation.h>
 
-@implementation CXImageUtil
+@implementation CXImageUtils
 
 + (void)imageBase64:(NSArray<UIImage *> *)images completion:(CXImageBase64CompletionBlock)completion{
     [self imageBase64:images compressMaxQuality:(300 * 1000.0) completion:completion];

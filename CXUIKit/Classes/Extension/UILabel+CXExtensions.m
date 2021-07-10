@@ -9,6 +9,7 @@
 #import "UILabel+CXExtensions.h"
 #import "NSAttributedString+CXExtensions.h"
 #import <CXFoundation/CXFoundation.h>
+#import "CXStringBounding.h"
 
 @implementation UILabel (CXExtensions)
 
@@ -54,10 +55,9 @@
 
 - (CGSize)cx_sizeThatFits:(CGSize)size{
     if(self.text && !self.attributedText){
-        return [self.text boundingRectWithSize:size
-                                       options:NSStringDrawingUsesLineFragmentOrigin
-                                    attributes:@{NSFontAttributeName : self.font}
-                                       context:nil].size;
+        return [CXStringBounding bounding:self.text
+                             rectWithSize:size
+                                     font:self.font].size;
     }
     
     CGSize _size = [self sizeThatFits:size];

@@ -16,8 +16,8 @@ typedef void(^CXActionToolBarItemActionHandler)(CXActionToolBarItemNode *itemNod
 @property (nonatomic, assign) NSInteger tag;
 
 @property (nonatomic, copy) NSString *title;
-@property (nonatomic, strong) UIImage *image;
-@property (nonatomic, copy) NSString *imageURL;
+@property (nonatomic, strong) id image;
+@property (nonatomic, assign) CGSize imageSize;
 
 @property (nonatomic, assign, getter = isEnabled) BOOL enabled;
 @property (nonatomic, strong) id userInfo;
@@ -26,6 +26,8 @@ typedef void(^CXActionToolBarItemActionHandler)(CXActionToolBarItemNode *itemNod
 
 - (instancetype)initWithTitle:(NSString *)title
                 actionHandler:(CXActionToolBarItemActionHandler)actionHandler;
+
+- (void)config;
 
 - (void)invokeActionForContext:(id)context;
 

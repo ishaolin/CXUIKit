@@ -48,8 +48,8 @@
 #import "CXVideoPlayStatus.h"
 #import "CXGradientView.h"
 #import "CXWebImage.h"
-#import "CXImageUtil.h"
-#import "CXAppUtil.h"
+#import "CXImageUtils.h"
+#import "CXAppUtils.h"
 #import "CXGesturePopInteractionController.h"
 #import "CXBaseViewController.h"
 #import "CXNavigationBar.h"
@@ -79,5 +79,6 @@
 #import "CXErrorViewController.h"
 #import "CXPickerController.h"
 #import "CXViewControllerAnimation.h"
+#import "CXStringBounding.h"
 
 #endif /* CXUIKit_h */

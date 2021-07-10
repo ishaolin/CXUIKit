@@ -10,7 +10,7 @@
 #import "UIButton+CXExtensions.h"
 #import "UIFont+CXExtensions.h"
 #import "UIScreen+CXExtensions.h"
-#import "CXImageUtil.h"
+#import "CXImageUtils.h"
 #import "UIView+CXExtensions.h"
 
 @interface CXNumberKeyboardKeyButton : UIView {

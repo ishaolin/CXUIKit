@@ -11,12 +11,7 @@
 @implementation CXTableViewCell
 
 + (instancetype)cellWithTableView:(UITableView *)tableView{
-    static NSString *reuseIdentifier = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        reuseIdentifier = NSStringFromClass([self class]);
-    });
-    
+    static NSString *reuseIdentifier = @"CXTableViewCell";
     return [self cellWithTableView:tableView reuseIdentifier:reuseIdentifier];
 }
 

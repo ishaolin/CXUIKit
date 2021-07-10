@@ -10,7 +10,7 @@
 #import "CXAssetBrowserImageCell.h"
 #import "CXAssetBrowserVideoCell.h"
 #import <CXFoundation/CXFoundation.h>
-#import "CXImageUtil.h"
+#import "CXImageUtils.h"
 #import "UIScreen+CXExtensions.h"
 #import "CXBaseViewController.h"
 #import "UIView+CXExtensions.h"

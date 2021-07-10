@@ -159,9 +159,12 @@ typedef NS_ENUM(NSInteger, CXImagePlayerScrollOrietation){
         return;
     }
     
-    CXInvocation *invocation = [[CXInvocation alloc] initWithTarget:self action:@selector(autoPlayAction:)];
-    CXTimerConfig *config = [[CXTimerConfig alloc] initWithInterval:_timeInterval repeats:YES];
-    _autoPlayTimer = [CXTimer taskTimerWithInvocation:invocation config:config];
+    _autoPlayTimer = [CXTimer taskTimerWithConfig:^(CXTimerConfig *config) {
+        config.target = self;
+        config.action = @selector(autoPlayAction:);
+        config.interval = _timeInterval;
+        config.repeats = YES;
+    }];
 }
 
 - (void)stopAutoPlay{
