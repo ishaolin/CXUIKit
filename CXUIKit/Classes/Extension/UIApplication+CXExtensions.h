@@ -12,7 +12,7 @@
 - (UIWindow *)cx_activeWindow;
 
 - (void)cx_createWindow:(id)delegate
-                  scene:(nullable id)scene
+                  scene:(id)scene
      rootViewController:(UIViewController *)rootViewController;
 
 - (UIViewController *)cx_visibleViewController;

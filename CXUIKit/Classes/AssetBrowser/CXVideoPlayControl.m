@@ -152,34 +152,18 @@
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if(self = [super initWithFrame:frame]){
-        self.minimumTrackTintColor = [UIColor whiteColor];
-        self.maximumTrackTintColor = [self.minimumTrackTintColor colorWithAlphaComponent:0.4];
+        UIColor *tintColor = [UIColor whiteColor];
+        self.minimumTrackTintColor = tintColor;
+        self.maximumTrackTintColor = [tintColor colorWithAlphaComponent:0.4];
+        
+        UIImage *thumbImage = [UIImage cx_imageWithColor:tintColor
+                                                    size:CGSizeMake(10.0, 10.0)];
+        thumbImage = [thumbImage cx_roundImage];
+        [self setThumbImage:thumbImage forState:UIControlStateNormal];
+        [self setThumbImage:thumbImage forState:UIControlStateHighlighted];
     }
     
     return self;
-}
-
-- (CGRect)thumbRectForBounds:(CGRect)bounds trackRect:(CGRect)rect value:(float)value{
-    CGRect thumbRect = [super thumbRectForBounds:bounds trackRect:rect value:value];
-    thumbRect.size.width -= 1.0;
-    thumbRect.size.height -= 1.0;
-    thumbRect.origin.x += (thumbRect.size.width * 0.5) * (value / self.maximumValue);
-    return thumbRect;
-}
-
-- (void)layoutSubviews{
-    [super layoutSubviews];
-    
-    @try{
-        UIView *thumbView = (UIView *)[self valueForKey:@"innerThumbView"];
-        CGFloat thumbView_W = 28.5;
-        CGFloat thumbView_H = 22.0;
-        CGFloat thumbView_X = -6.0;
-        CGFloat thumbView_Y = (CGRectGetHeight(self.bounds) - thumbView_H) * 0.5 + 1.0;
-        thumbView.frame = (CGRect){thumbView_X, thumbView_Y, thumbView_W, thumbView_H};
-    }@catch (NSException *exception){
-        
-    }
 }
 
 @end
