@@ -1,15 +1,15 @@
 //
-//  UIImage+CXExtensions.m
+//  UIImage+CXUIKit.m
 //  Pods
 //
 //  Created by wshaolin on 2017/6/14.
 //
 //
 
-#import "UIImage+CXExtensions.h"
+#import "UIImage+CXUIKit.h"
 #import <CXFoundation/CXFoundation.h>
 
-@implementation UIImage (CXExtensions)
+@implementation UIImage (CXUIKit)
 
 + (UIImage *)cx_imageNamed:(NSString *)imageName{
     return [self cx_imageNamed:imageName
@@ -281,31 +281,6 @@
     image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return image;
-}
-
-- (void)cx_writeToSavedPhotosAlbum:(CXPhotosAlbumAccessAuthorizationBlock)authorization
-                        completion:(CXWriteToSavedPhotosAlbumCompletionBlock)completion{
-    CXPhotosAlbumAuthorizeResultBlock authorizeResultBlock = ^(BOOL isAuthorised){
-        if(!isAuthorised){
-            return;
-        }
-        
-        SEL selector = @selector(cx_writeToSavedPhotosAlbum:didFinishSavingWithError:contextInfo:);
-        UIImageWriteToSavedPhotosAlbum(self, self, selector, (__bridge void *)(completion));
-    };
-    
-    if(authorization){
-        authorization([PHPhotoLibrary authorizationStatus], authorizeResultBlock);
-    }else{
-        authorizeResultBlock(YES);
-    }
-}
-
-- (void)cx_writeToSavedPhotosAlbum:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
-    CXWriteToSavedPhotosAlbumCompletionBlock completion = (__bridge CXWriteToSavedPhotosAlbumCompletionBlock)(contextInfo);
-    if(completion){
-        completion(error);
-    }
 }
 
 @end

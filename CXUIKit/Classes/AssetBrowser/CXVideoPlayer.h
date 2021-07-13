@@ -38,6 +38,7 @@
 - (void)setPlayerItem:(AVPlayerItem *)playerItem;
 
 - (void)play;
+- (void)stop;
 
 - (void)pause;
 - (void)resume;

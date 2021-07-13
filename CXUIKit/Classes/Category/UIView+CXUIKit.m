@@ -1,14 +1,14 @@
 //
-//  UIView+CXExtensions.m
+//  UIView+CXUIKit.m
 //  Pods
 //
 //  Created by wshaolin on 2018/12/21.
 //
 
-#import "UIView+CXExtensions.h"
+#import "UIView+CXUIKit.h"
 #import <objc/runtime.h>
 
-@interface UIView (CXExtensions)
+@interface UIView (CXUIKit)
 
 @property (nonatomic, assign) CGRect cx_roundedRect;
 @property (nonatomic, assign) UIRectCorner cx_roundedCorners;
@@ -20,7 +20,7 @@
 
 @end
 
-@implementation UIView (CXExtensions)
+@implementation UIView (CXUIKit)
 
 - (UIImage *)cx_image{
     UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, 0);

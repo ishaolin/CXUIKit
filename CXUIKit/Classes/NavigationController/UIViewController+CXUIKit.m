@@ -1,14 +1,14 @@
 //
-//  UIViewController+CXExtensions.m
+//  UIViewController+CXUIKit.m
 //  Pods
 //
 //  Created by wshaolin on 2019/1/31.
 //
 
-#import "UIViewController+CXExtensions.h"
+#import "UIViewController+CXUIKit.h"
 #import <CXFoundation/CXFoundation.h>
 
-@implementation UIViewController (CXExtensions)
+@implementation UIViewController (CXUIKit)
 
 + (void)load{
     if(@available(iOS 13.0, *)){
@@ -51,7 +51,7 @@
 
 @end
 
-@implementation UINavigationController (CXExtensions)
+@implementation UINavigationController (CXUIKit)
 
 - (void)cx_pushViewController:(UIViewController *)viewController
                      pushType:(CXSchemePushType)pushType

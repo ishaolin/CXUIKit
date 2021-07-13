@@ -6,9 +6,9 @@
 //
 
 #import "CXAlertActionPanel.h"
-#import "UIFont+CXExtensions.h"
-#import "UIColor+CXExtensions.h"
-#import "UIButton+CXExtensions.h"
+#import "UIFont+CXUIKit.h"
+#import "UIColor+CXUIKit.h"
+#import "UIButton+CXUIKit.h"
 
 static CXAlertActionPanel *_ActiveActionPanel = nil;
 

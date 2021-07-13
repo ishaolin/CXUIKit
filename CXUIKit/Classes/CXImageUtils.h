@@ -5,7 +5,7 @@
 //  Created by wshaolin on 2019/1/25.
 //
 
-#import "UIImage+CXExtensions.h"
+#import "UIImage+CXUIKit.h"
 
 #define CX_UIKIT_IMAGE(name) CX_POD_IMAGE(name, @"CXUIKit")
 

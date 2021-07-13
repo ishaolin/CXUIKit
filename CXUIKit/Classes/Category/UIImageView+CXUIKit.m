@@ -1,16 +1,16 @@
 //
-//  UIImageView+CXExtensions.m
+//  UIImageView+CXUIKit.m
 //  Pods
 //
 //  Created by wshaolin on 2019/1/24.
 //
 
-#import "UIImageView+CXExtensions.h"
+#import "UIImageView+CXUIKit.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "CXWebImage.h"
 #import <CXFoundation/CXFoundation.h>
 
-@implementation UIImageView (CXExtensions)
+@implementation UIImageView (CXUIKit)
 
 - (void)cx_setImageWithURL:(NSString *)URL{
     [self cx_setImageWithURL:URL placeholderImage:nil];

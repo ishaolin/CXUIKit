@@ -8,8 +8,8 @@
 #import "CXAssetBrowserVideoCell.h"
 #import "CXVideoPlayer.h"
 #import "CXImageUtils.h"
-#import "UIScreen+CXExtensions.h"
-#import "UIColor+CXExtensions.h"
+#import "UIScreen+CXUIKit.h"
+#import "UIColor+CXUIKit.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface CXAssetBrowserVideoCell () <CXVideoPlayerDelegate> {

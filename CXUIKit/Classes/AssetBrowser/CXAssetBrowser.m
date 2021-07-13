@@ -11,9 +11,9 @@
 #import "CXAssetBrowserVideoCell.h"
 #import <CXFoundation/CXFoundation.h>
 #import "CXImageUtils.h"
-#import "UIScreen+CXExtensions.h"
+#import "UIScreen+CXUIKit.h"
 #import "CXBaseViewController.h"
-#import "UIView+CXExtensions.h"
+#import "UIView+CXUIKit.h"
 
 @interface CXAssetBrowser () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, CXAssetBrowserContentCellDelegate>{
     CXAssetBrowserCollectionView *_contentView;

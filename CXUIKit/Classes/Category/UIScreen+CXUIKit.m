@@ -1,14 +1,14 @@
 //
-//  UIScreen+CXExtensions.m
+//  UIScreen+CXUIKit.m
 //  Pods
 //
 //  Created by wshaolin on 2018/6/19.
 //
 
-#import "UIScreen+CXExtensions.h"
+#import "UIScreen+CXUIKit.h"
 #import <objc/runtime.h>
 
-@implementation UIScreen (CXExtensions)
+@implementation UIScreen (CXUIKit)
 
 - (UIEdgeInsets)cx_safeAreaInsets{
     NSValue *safeAreaInsets = objc_getAssociatedObject(self, _cmd);

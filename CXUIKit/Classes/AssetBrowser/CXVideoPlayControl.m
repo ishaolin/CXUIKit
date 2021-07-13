@@ -6,8 +6,8 @@
 //
 
 #import "CXVideoPlayControl.h"
-#import "UIFont+CXExtensions.h"
-#import "UIColor+CXExtensions.h"
+#import "UIFont+CXUIKit.h"
+#import "UIColor+CXUIKit.h"
 #import "CXImageUtils.h"
 #import <CXFoundation/CXFoundation.h>
 
@@ -157,7 +157,7 @@
         self.maximumTrackTintColor = [tintColor colorWithAlphaComponent:0.4];
         
         UIImage *thumbImage = [UIImage cx_imageWithColor:tintColor
-                                                    size:CGSizeMake(10.0, 10.0)];
+                                                    size:CGSizeMake(12.0, 12.0)];
         thumbImage = [thumbImage cx_roundImage];
         [self setThumbImage:thumbImage forState:UIControlStateNormal];
         [self setThumbImage:thumbImage forState:UIControlStateHighlighted];

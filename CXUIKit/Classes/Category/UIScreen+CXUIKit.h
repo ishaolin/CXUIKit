@@ -1,5 +1,5 @@
 //
-//  UIScreen+CXExtensions.h
+//  UIScreen+CXUIKit.h
 //  Pods
 //
 //  Created by wshaolin on 2018/6/19.
@@ -27,7 +27,7 @@
 #define CX_SCREEN_INCH_IS_4_0   CX_SCREEN_SIZE_EQUALS(320.0, 568.0) // iPhone：5/5S/5C/SE
 #define CX_SCREEN_INCH_IS_3_5   CX_SCREEN_SIZE_EQUALS(320.0, 480.0) // iPhone：4/4S
 
-@interface UIScreen (CXExtensions)
+@interface UIScreen (CXUIKit)
 
 @property (nonatomic, assign, readonly) UIEdgeInsets cx_safeAreaInsets;
 @property (nonatomic, assign, readonly) UIEdgeInsets cx_scrollViewSafeAreaInset;

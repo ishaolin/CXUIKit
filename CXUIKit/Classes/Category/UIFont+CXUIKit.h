@@ -1,5 +1,5 @@
 //
-//  UIFont+CXExtensions.h
+//  UIFont+CXUIKit.h
 //  Pods
 //
 //  Created by wshaolin on 2017/6/21.
@@ -17,7 +17,7 @@
 #define CX_DefaultFontOfSize(size)       [UIFont cx_defaultFontOfSize:size]
 #define CX_BoldDefaultFontOfSize(size)   [UIFont cx_boldDefaultFontOfSize:size]
 
-@interface UIFont (CXExtensions)
+@interface UIFont (CXUIKit)
 
 + (UIFont *)cx_defaultFontOfSize:(CGFloat)fontSize;
 + (UIFont *)cx_boldDefaultFontOfSize:(CGFloat)fontSize;

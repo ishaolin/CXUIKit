@@ -8,7 +8,7 @@
 
 #import "CXNavigationBar.h"
 #import "CXNavigationConfig.h"
-#import "UIScreen+CXExtensions.h"
+#import "UIScreen+CXUIKit.h"
 
 @interface CXNavigationBar()<CXNavigationItemDelegate>{
     CALayer *_horizontalLine;

@@ -6,9 +6,9 @@
 //
 
 #import "CXActionSheetPanel.h"
-#import "UIFont+CXExtensions.h"
-#import "UIColor+CXExtensions.h"
-#import "UIScreen+CXExtensions.h"
+#import "UIFont+CXUIKit.h"
+#import "UIColor+CXUIKit.h"
+#import "UIScreen+CXUIKit.h"
 #import <CXFoundation/CXFoundation.h>
 #import "CXStringBounding.h"
 

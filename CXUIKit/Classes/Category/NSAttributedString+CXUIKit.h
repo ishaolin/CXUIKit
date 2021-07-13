@@ -1,5 +1,5 @@
 //
-//  NSAttributedString+CXExtensions.h
+//  NSAttributedString+CXUIKit.h
 //  Pods
 //
 //  Created by wshaolin on 2017/6/15.
@@ -12,7 +12,7 @@ typedef void(^CXAttributedStringFormatBlock)(NSMutableAttributedString *attribut
                                              NSInteger idx,
                                              NSRange range);
 
-@interface NSAttributedString (CXExtensions)
+@interface NSAttributedString (CXUIKit)
 
 + (NSAttributedString *)cx_attributedString:(NSString *)string
                            highlightedColor:(UIColor *)highlightedColor

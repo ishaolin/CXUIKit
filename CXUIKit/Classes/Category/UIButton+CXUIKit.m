@@ -1,15 +1,15 @@
 //
-//  UIButton+CXExtensions.m
+//  UIButton+CXUIKit.m
 //  Pods
 //
 //  Created by wshaolin on 2017/6/14.
 //
 //
 
-#import "UIButton+CXExtensions.h"
+#import "UIButton+CXUIKit.h"
 #import <SDWebImage/UIButton+WebCache.h>
 
-@implementation UIButton (CXExtensions)
+@implementation UIButton (CXUIKit)
 
 - (void)cx_setBackgroundColor:(UIColor *)backgroundColor
                      forState:(UIControlState)state{

@@ -9,7 +9,7 @@
 #import "CXBarButtonItem.h"
 #import "CXNavigationConfig.h"
 #import "CXWebImage.h"
-#import "UIImage+CXExtensions.h"
+#import "UIImage+CXUIKit.h"
 
 static const CGFloat CXBarButtonItemDefaultWidth = 30.0;
 
@@ -109,7 +109,7 @@ static const CGFloat CXBarButtonItemDefaultWidth = 30.0;
 
 - (UIButton *)buttonWithTitle:(NSString *)title image:(UIImage *)normalImage highlightedImage:(UIImage *)highlightedImage target:(id)target action:(SEL)action{
     _invocation = [CXInvocation invocationWithTarget:target action:action];
-    [_invocation setExecutor:self];
+    _invocation.invoker = self;
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.imageView.contentMode = UIViewContentModeCenter;
@@ -170,7 +170,7 @@ static const CGFloat CXBarButtonItemDefaultWidth = 30.0;
 
 @end
 
-@implementation CXBarButtonItem (CXExtensions)
+@implementation CXBarButtonItem (CXUIKit)
 
 + (instancetype)buttonItemWithTarget:(id)target action:(SEL)action{
     return [[self alloc] initWithTitle:nil target:target action:action];

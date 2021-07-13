@@ -8,7 +8,7 @@
 #import "CXSchemeHandler.h"
 #import "CXSchemeEvent.h"
 #import "CXSchemeRegistrar.h"
-#import "UIViewController+CXExtensions.h"
+#import "UIViewController+CXUIKit.h"
 
 @implementation CXSchemeHandler
 

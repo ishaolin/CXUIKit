@@ -1,13 +1,13 @@
 //
-//  UIApplication+CXExtensions.m
-//  CXUIKit
+//  UIApplication+CXUIKit.m
+//  Pods
 //
 //  Created by wshaolin on 2021/7/6.
 //
 
-#import "UIApplication+CXExtensions.h"
+#import "UIApplication+CXUIKit.h"
 
-@implementation UIApplication (CXExtensions)
+@implementation UIApplication (CXUIKit)
 
 - (UIWindow *)cx_activeWindow {
     __block UIWindow *window = nil;

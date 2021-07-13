@@ -7,9 +7,9 @@
 
 #import "CXWebViewController.h"
 #import "CXBarButtonItem.h"
-#import "UIColor+CXExtensions.h"
-#import "UIImage+CXExtensions.h"
-#import "UIDevice+CXExtensions.h"
+#import "UIColor+CXUIKit.h"
+#import "UIImage+CXUIKit.h"
+#import "UIDevice+CXUIKit.h"
 #import "CXPageErrorView.h"
 #import "CXDataRecord.h"
 #import <objc/runtime.h>

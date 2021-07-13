@@ -9,9 +9,9 @@
 #import <AVFoundation/AVFoundation.h>
 #import <CXFoundation/CXFoundation.h>
 #import "CXImageUtils.h"
-#import "UIColor+CXExtensions.h"
+#import "UIColor+CXUIKit.h"
 #import "CXVideoPlayControl.h"
-#import "UIScreen+CXExtensions.h"
+#import "UIScreen+CXUIKit.h"
 #import "CXSystemAdapter.h"
 
 #define CX_KVO_KEYPATH_status @"status"
@@ -33,14 +33,14 @@
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if(self = [super initWithFrame:frame]){
+        _snapshotView = [[UIImageView alloc] init];
+        _snapshotView.contentMode = UIViewContentModeScaleAspectFit;
+        [self addSubview:_snapshotView];
+        
         _playControl = [[CXVideoPlayControl alloc] init];
         _playControl.hidden = YES;
         _playControl.delegate = self;
         [self addSubview:_playControl];
-        
-        _snapshotView = [[UIImageView alloc] init];
-        _snapshotView.contentMode = UIViewContentModeScaleAspectFit;
-        [self addSubview:_snapshotView];
         
         _playButton = [UIButton buttonWithType:UIButtonTypeCustom];
         UIImage *playButtonIcon = CX_UIKIT_IMAGE(@"ui_video_play");
@@ -89,9 +89,6 @@
     [_playerLayer.player.currentItem removeObserver:self forKeyPath:CX_KVO_KEYPATH_status];
     [_playerLayer.player.currentItem removeObserver:self forKeyPath:CX_KVO_KEYPATH_loadedTimeRanges];
     
-    _totalTime = 0;
-    _seekTime = CMTimeMake(0, 1);
-    
     [item addObserver:self
            forKeyPath:CX_KVO_KEYPATH_status
               options:NSKeyValueObservingOptionNew
@@ -102,12 +99,16 @@
               context:nil];
     
     AVPlayer *player = [[AVPlayer alloc] initWithPlayerItem:item];
+    @weakify(self);
     _playerTimeObserver = [player addPeriodicTimeObserverForInterval:CMTimeMake(1, 10) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
+        @strongify(self);
         [self playToTime:time];
     }];
     
     _playerLayer = [AVPlayerLayer playerLayerWithPlayer:player];
     _playerLayer.frame = self.bounds;
+    _seekTime = CMTimeMake(0, 1);
+    _playControl.playStatus = CXVideoPlayStatusLoading;
     
     [NSNotificationCenter addObserver:self
                                action:@selector(playerItemDidPlayToEndTimeNotification:)
@@ -127,7 +128,6 @@
     AVPlayerItem *item = (AVPlayerItem *)object;
     if([keyPath isEqualToString:CX_KVO_KEYPATH_status]){
         if(item.status == AVPlayerStatusReadyToPlay){
-            _totalTime = CMTimeGetSeconds(item.duration);
             _playControl.totalTime = item.duration;
             _playControl.playTime = kCMTimeZero;
             _playControl.playStatus = CXVideoPlayStatusReadyToPlay;
@@ -152,30 +152,28 @@
 }
 
 - (void)play{
-    void (^completion)(BOOL) = ^(BOOL finished){
+    [self seekToTime:_seekTime completion:^(BOOL finished) {
         if(!finished){
             return;
         }
         
         [CXDispatchHandler asyncOnMainQueue:^{
             [self->_playerLayer.player play];
-            self->_playButton.hidden = YES;
             self->_playControl.playStatus = CXVideoPlayStatusPlaying;
+            self->_playButton.hidden = YES;
             
             if([self.delegate respondsToSelector:@selector(videoPlayerDidStartPlay:)]){
                 [self.delegate videoPlayerDidStartPlay:self];
             }
         }];
-    };
+    }];
+}
+
+- (void)stop{
+    [self pause];
     
-    if(CMTIME_IS_VALID(_seekTime)){
-        [_playerLayer.player seekToTime:_seekTime
-                        toleranceBefore:kCMTimeZero
-                         toleranceAfter:kCMTimeZero
-                      completionHandler:completion];
-    }else{
-        completion(YES);
-    }
+    _playControl.playStatus = CXVideoPlayStatusEndOfPlay;
+    [self seekToTime:CMTimeMake(0, 1) completion:nil];
 }
 
 - (void)pause{
@@ -183,10 +181,12 @@
         if(_playerLayer.player.timeControlStatus != AVPlayerTimeControlStatusPaused){
             [_playerLayer.player pause];
             _playControl.playStatus = CXVideoPlayStatusPaused;
+            _playButton.hidden = NO;
         }
     }else{
         [_playerLayer.player pause];
         _playControl.playStatus = CXVideoPlayStatusPaused;
+        _playButton.hidden = NO;
     }
 }
 
@@ -201,7 +201,7 @@
             }
         }
         
-        void (^completion)(BOOL) = ^(BOOL finished){
+        [self seekToTime:_seekTime completion:^(BOOL finished) {
             if(!finished){
                 return;
             }
@@ -209,17 +209,9 @@
             [CXDispatchHandler asyncOnMainQueue:^{
                 [self->_playerLayer.player play];
                 self->_playControl.playStatus = CXVideoPlayStatusPlaying;
+                self->_playButton.hidden = YES;
             }];
-        };
-        
-        if(CMTIME_IS_VALID(_seekTime)){
-            [_playerLayer.player seekToTime:_seekTime
-                            toleranceBefore:kCMTimeZero
-                             toleranceAfter:kCMTimeZero
-                          completionHandler:completion];
-        }else{
-            completion(YES);
-        }
+        }];
     }
 }
 
@@ -253,12 +245,24 @@
     [CXDispatchHandler asyncOnMainQueue:^{
         self->_playControl.playStatus = CXVideoPlayStatusEndOfPlay;
         self->_playControl.hidden = NO;
-        self->_seekTime = CMTimeMake(0, 1);
-        
+        self->_playButton.hidden = NO;
+        [self seekToTime:CMTimeMake(0, 1) completion:nil];
         if([self.delegate respondsToSelector:@selector(videoPlayerDidPlayToEnd:)]){
             [self.delegate videoPlayerDidPlayToEnd:self];
         }
     }];
+}
+
+- (void)seekToTime:(CMTime)time completion:(void (^)(BOOL finished))completion{
+    _seekTime = time;
+    if(CMTIME_IS_VALID(time)){
+        [_playerLayer.player seekToTime:time
+                        toleranceBefore:kCMTimeZero
+                         toleranceAfter:kCMTimeZero
+                      completionHandler:completion];
+    }else{
+        !completion ?: completion(YES);
+    }
 }
 
 - (void)videoPlayControlDidPlay:(CXVideoPlayControl *)playControl{
@@ -285,7 +289,7 @@
         return NO;
     }
     
-    if([touch isKindOfClass:[UIControl class]]){
+    if([touch.view isKindOfClass:[UIControl class]]){
         return NO;
     }
     

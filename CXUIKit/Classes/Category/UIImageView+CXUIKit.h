@@ -1,5 +1,5 @@
 //
-//  UIImageView+CXExtensions.h
+//  UIImageView+CXUIKit.h
 //  Pods
 //
 //  Created by wshaolin on 2019/1/24.
@@ -9,7 +9,7 @@
 
 typedef void(^CXWebImageCompletionBlock)(UIImage *image);
 
-@interface UIImageView (CXExtensions)
+@interface UIImageView (CXUIKit)
 
 - (void)cx_setImageWithURL:(NSString *)URL;
 

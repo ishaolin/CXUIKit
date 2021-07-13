@@ -36,7 +36,7 @@
 
 @end
 
-@interface CXBarButtonItem (CXExtensions)
+@interface CXBarButtonItem (CXUIKit)
 
 + (instancetype)buttonItemWithTarget:(id)target action:(SEL)action;
 

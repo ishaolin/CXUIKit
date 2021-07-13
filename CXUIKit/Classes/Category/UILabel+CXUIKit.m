@@ -1,17 +1,17 @@
 //
-//  UILabel+CXExtensions.m
+//  UILabel+CXUIKit.m
 //  Pods
 //
 //  Created by wshaolin on 2017/6/14.
 //
 //
 
-#import "UILabel+CXExtensions.h"
-#import "NSAttributedString+CXExtensions.h"
+#import "UILabel+CXUIKit.h"
+#import "NSAttributedString+CXUIKit.h"
 #import <CXFoundation/CXFoundation.h>
 #import "CXStringBounding.h"
 
-@implementation UILabel (CXExtensions)
+@implementation UILabel (CXUIKit)
 
 - (void)cx_setAttributedText:(NSString *)attributedText{
     [self cx_setAttributedText:attributedText

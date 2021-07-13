@@ -6,7 +6,7 @@
 //
 
 #import "CXPageMenuToolbar.h"
-#import "UIColor+CXExtensions.h"
+#import "UIColor+CXUIKit.h"
 
 @implementation CXPageMenuToolbar
 

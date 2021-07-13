@@ -6,9 +6,9 @@
 //
 
 #import "CXPopActionPanel.h"
-#import "UIFont+CXExtensions.h"
-#import "UIView+CXExtensions.h"
-#import "UIImage+CXExtensions.h"
+#import "UIFont+CXUIKit.h"
+#import "UIView+CXUIKit.h"
+#import "UIImage+CXUIKit.h"
 #import "CXStringBounding.h"
 
 static const CGFloat CXPopActionPanelOuterEdge = 5.0;

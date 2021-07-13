@@ -6,7 +6,7 @@
 //
 
 #import "CXActionItemButton.h"
-#import "UIView+CXExtensions.h"
+#import "UIView+CXUIKit.h"
 
 @interface CXActionItemButton (){
     NSMutableDictionary<NSNumber *, UIFont *> *_titleFonts;

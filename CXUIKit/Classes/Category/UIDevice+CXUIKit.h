@@ -1,5 +1,5 @@
 //
-//  UIDevice+CXExtensions.h
+//  UIDevice+CXUIKit.h
 //  Pods
 //
 //  Created by wshaolin on 2017/6/14.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIDevice (CXExtensions)
+@interface UIDevice (CXUIKit)
 
 @property (nonatomic, copy, readonly) NSString *cx_identifier;
 @property (nonatomic, copy, readonly) NSString *cx_resolution;          // @"2208x1240"

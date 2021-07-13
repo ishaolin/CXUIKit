@@ -106,8 +106,8 @@
 }
 
 - (CXAnimatedTransitioningStyle)animatedTransitioningStyleForViewController:(UIViewController *)viewController{
-    if([viewController conformsToProtocol:@protocol(CXAnimatedTransitioningSupportor)]){
-        return [((id<CXAnimatedTransitioningSupportor>)viewController) animatedTransitioningStyle];
+    if([viewController conformsToProtocol:@protocol(CXAnimatedTransitioningSupporter)]){
+        return [((id<CXAnimatedTransitioningSupporter>)viewController) animatedTransitioningStyle];
     }
     
     return CXAnimatedTransitioningStyleCoverHorizontal;

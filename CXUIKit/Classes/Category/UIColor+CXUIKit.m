@@ -1,26 +1,26 @@
 //
-//  UIColor+CXExtensions.m
+//  UIColor+CXUIKit.m
 //  Pods
 //
 //  Created by wshaolin on 2017/6/14.
 //
 //
 
-#import "UIColor+CXExtensions.h"
+#import "UIColor+CXUIKit.h"
 
 #define CX_I_0xFF  0xFF
 #define CX_F_0xFF  (CX_I_0xFF * 1.0)
 
 static inline unsigned _CXColorComponentFromString(NSString *colorString, NSRange range){
-    NSString *_colorString = [colorString substringWithRange:range];
+    NSString *string = [colorString substringWithRange:range];
     if(range.length == 1){
-        _colorString = [NSString stringWithFormat:@"%@%@", _colorString, _colorString];
+        string = [NSString stringWithFormat:@"%@%@", string, string];
     }
     
-    unsigned hexIntValue = 0;
-    [[NSScanner scannerWithString: _colorString] scanHexInt:&hexIntValue];
+    unsigned intValue = 0;
+    [[NSScanner scannerWithString:string] scanHexInt:&intValue];
     
-    return hexIntValue;
+    return intValue;
 }
 
 static inline NSString *_CXHexStringFromAlgorism(NSUInteger algorism){
@@ -54,7 +54,7 @@ static inline NSString *_CXColorHexStringFromAlgorism(NSUInteger algorism){
     return [NSString stringWithFormat:@"0%@", hexString];
 }
 
-@implementation UIColor (CXExtensions)
+@implementation UIColor (CXUIKit)
 
 + (UIColor *)cx_colorWithHex:(uint32_t)hex{
     return [self cx_colorWithHex:hex alpha:1.0];

@@ -1,5 +1,5 @@
 //
-//  UIView+CXExtensions.h
+//  UIView+CXUIKit.h
 //  Pods
 //
 //  Created by wshaolin on 2018/12/21.
@@ -15,7 +15,7 @@ typedef NS_OPTIONS(NSUInteger, CXShadowOptions) {
     CXShadowAll     = ~0UL
 };
 
-@interface UIView (CXExtensions)
+@interface UIView (CXUIKit)
 
 - (UIImage *)cx_image;
 - (UIViewController *)cx_viewController;

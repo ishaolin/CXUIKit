@@ -7,7 +7,7 @@
 
 #import "CXWebView.h"
 #import "CXAlertControllerUtils.h"
-#import "UIColor+CXExtensions.h"
+#import "UIColor+CXUIKit.h"
 #import "CXWebViewJavaScriptBridge.h"
 #import "CXWebImage.h"
 #import "CXWebViewProgressBar.h"

@@ -1,15 +1,15 @@
 //
-//  UIFont+CXExtensions.m
+//  UIFont+CXUIKit.m
 //  Pods
 //
 //  Created by wshaolin on 2017/6/21.
 //
 //
 
-#import "UIFont+CXExtensions.h"
+#import "UIFont+CXUIKit.h"
 #import <CXFoundation/CXFoundation.h>
 
-@implementation UIFont (CXExtensions)
+@implementation UIFont (CXUIKit)
 
 + (UIFont *)cx_defaultFontOfSize:(CGFloat)fontSize{
     return [self cx_PingFangSC_RegularFontOfSize:fontSize];

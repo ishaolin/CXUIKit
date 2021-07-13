@@ -6,9 +6,9 @@
 //
 
 #import "CXPageErrorView.h"
-#import "UIColor+CXExtensions.h"
-#import "UIFont+CXExtensions.h"
-#import "UIButton+CXExtensions.h"
+#import "UIColor+CXUIKit.h"
+#import "UIFont+CXUIKit.h"
+#import "UIButton+CXUIKit.h"
 #import "CXImageUtils.h"
 #import "CXUIUtils.h"
 #import "CXStringBounding.h"

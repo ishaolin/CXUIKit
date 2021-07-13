@@ -7,7 +7,7 @@
 //
 
 #import "CXNavigationConfig.h"
-#import "UIFont+CXExtensions.h"
+#import "UIFont+CXUIKit.h"
 
 static UIStatusBarStyle _navigationBarStyleDefault = UIStatusBarStyleDefault;
 static UIImage *_navigationBarBackIconDefault = nil;

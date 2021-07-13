@@ -1,5 +1,5 @@
 //
-//  UIColor+CXExtensions.h
+//  UIColor+CXUIKit.h
 //  Pods
 //
 //  Created by wshaolin on 2017/6/14.
@@ -19,7 +19,7 @@ typedef struct{
     CGFloat a; // alpha, [0, 1]
 } CXColorRGB;
 
-@interface UIColor (CXExtensions)
+@interface UIColor (CXUIKit)
 
 + (UIColor *)cx_colorWithHex:(uint32_t)hex;
 + (UIColor *)cx_colorWithHex:(uint32_t)hex alpha:(CGFloat)alpha;

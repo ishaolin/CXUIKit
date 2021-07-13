@@ -146,8 +146,8 @@
 }
 
 - (BOOL)disableGesturePopInteraction{
-    if([self conformsToProtocol:@protocol(CXAnimatedTransitioningSupportor)]){
-        CXAnimatedTransitioningStyle transitioningStyle = [(id<CXAnimatedTransitioningSupportor>)self animatedTransitioningStyle];
+    if([self conformsToProtocol:@protocol(CXAnimatedTransitioningSupporter)]){
+        CXAnimatedTransitioningStyle transitioningStyle = [(id<CXAnimatedTransitioningSupporter>)self animatedTransitioningStyle];
         return transitioningStyle == CXAnimatedTransitioningStyleCoverVertical;
     }
     

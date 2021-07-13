@@ -6,12 +6,12 @@
 //
 
 #import "CXNumberKeyboardPanel.h"
-#import "UIColor+CXExtensions.h"
-#import "UIButton+CXExtensions.h"
-#import "UIFont+CXExtensions.h"
-#import "UIScreen+CXExtensions.h"
+#import "UIColor+CXUIKit.h"
+#import "UIButton+CXUIKit.h"
+#import "UIFont+CXUIKit.h"
+#import "UIScreen+CXUIKit.h"
 #import "CXImageUtils.h"
-#import "UIView+CXExtensions.h"
+#import "UIView+CXUIKit.h"
 
 @interface CXNumberKeyboardKeyButton : UIView {
     CALayer *_shadowLayer;

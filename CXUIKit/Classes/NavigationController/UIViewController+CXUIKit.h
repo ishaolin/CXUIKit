@@ -1,5 +1,5 @@
 //
-//  UIViewController+CXExtensions.h
+//  UIViewController+CXUIKit.h
 //  Pods
 //
 //  Created by wshaolin on 2019/1/31.
@@ -8,13 +8,13 @@
 #import <UIKit/UIKit.h>
 #import "CXSchemeDefines.h"
 
-@interface UIViewController (CXExtensions)
+@interface UIViewController (CXUIKit)
 
 - (void)cx_destroyAfterPushViewController:(UIViewController *)viewController animated:(BOOL)animated;
 
 @end
 
-@interface UINavigationController (CXExtensions)
+@interface UINavigationController (CXUIKit)
 
 - (void)cx_pushViewController:(UIViewController *)viewController
                      pushType:(CXSchemePushType)pushType

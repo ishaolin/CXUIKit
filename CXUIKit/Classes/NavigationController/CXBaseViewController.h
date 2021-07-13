@@ -14,7 +14,7 @@ typedef NS_ENUM(NSInteger, CXAnimatedTransitioningStyle){
     CXAnimatedTransitioningStyleCoverVertical   = 1, // Present & dismiss 效果
 };
 
-@protocol CXAnimatedTransitioningSupportor <NSObject>
+@protocol CXAnimatedTransitioningSupporter <NSObject>
 
 @required
 

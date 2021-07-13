@@ -1,5 +1,5 @@
 //
-//  UIImage+CXExtensions.h
+//  UIImage+CXUIKit.h
 //  Pods
 //
 //  Created by wshaolin on 2017/6/14.
@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Photos/Photos.h>
 
 #define CX_LOAD_IMAGE(imageName, bundleName, frameworkName)  \
 [UIImage cx_imageNamed:imageName inBundle:bundleName forframework:frameworkName]
@@ -15,13 +14,6 @@
 #define CX_POD_IMAGE(imageName, podName) CX_LOAD_IMAGE(imageName, podName, podName)
 
 #define CX_NAME_IMAGE(imageName) CX_POD_IMAGE(imageName, nil) // [UIImage cx_imageNamed:imageName]
-
-typedef void(^CXPhotosAlbumAuthorizeResultBlock)(BOOL isAuthorised);
-
-typedef void(^CXPhotosAlbumAccessAuthorizationBlock)(PHAuthorizationStatus status,
-                                                     CXPhotosAlbumAuthorizeResultBlock authorizeResultBlock);
-
-typedef void(^CXWriteToSavedPhotosAlbumCompletionBlock)(NSError *error);
 
 /// 颜色渐变方向
 typedef NS_ENUM(NSInteger, CXColorGradientDirection) {
@@ -31,7 +23,7 @@ typedef NS_ENUM(NSInteger, CXColorGradientDirection) {
     CXColorGradientDownDiagonal  // 对角线，从左上向右下（↘）
 };
 
-@interface UIImage (CXExtensions)
+@interface UIImage (CXUIKit)
 
 + (UIImage *)cx_imageNamed:(NSString *)imageName;
 
@@ -90,8 +82,5 @@ typedef NS_ENUM(NSInteger, CXColorGradientDirection) {
 - (UIImage *)cx_roundImage;
 - (UIImage *)cx_roundImageWithRadius:(CGFloat)radius;
 - (UIImage *)cx_composeImage:(UIImage *)image rect:(CGRect)rect;
-
-- (void)cx_writeToSavedPhotosAlbum:(CXPhotosAlbumAccessAuthorizationBlock)authorization
-                        completion:(CXWriteToSavedPhotosAlbumCompletionBlock)completion;
 
 @end

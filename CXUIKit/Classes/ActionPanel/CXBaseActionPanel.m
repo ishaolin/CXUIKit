@@ -9,7 +9,7 @@
 #import "CXActionPanelOverlayView.h"
 #import "CXAlertActionPanel.h"
 #import <CXFoundation/CXFoundation.h>
-#import "UIApplication+CXExtensions.h"
+#import "UIApplication+CXUIKit.h"
 
 @interface CXBaseActionPanel () {
     UIView *_overlayView;

@@ -6,10 +6,10 @@
 //
 
 #import "CXHUD.h"
-#import "UIColor+CXExtensions.h"
-#import "UIFont+CXExtensions.h"
-#import "UIView+CXExtensions.h"
-#import "UIApplication+CXExtensions.h"
+#import "UIColor+CXUIKit.h"
+#import "UIFont+CXUIKit.h"
+#import "UIView+CXUIKit.h"
+#import "UIApplication+CXUIKit.h"
 #import "CXSystemAdapter.h"
 
 static CXHUDBackgroundStyle _HUDBackgroundStyle = CXHUDBackgroundStyleClear;

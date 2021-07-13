@@ -6,7 +6,7 @@
 //
 
 #import "CXTableViewCell.h"
-#import "UIColor+CXExtensions.h"
+#import "UIColor+CXUIKit.h"
 
 @implementation CXTableViewCell
 

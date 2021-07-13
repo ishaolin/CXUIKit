@@ -1,15 +1,15 @@
 //
-//  UIDevice+CXExtensions.m
+//  UIDevice+CXUIKit.m
 //  Pods
 //
 //  Created by wshaolin on 2017/6/14.
 //
 //
 
-#import "UIDevice+CXExtensions.h"
+#import "UIDevice+CXUIKit.h"
 #import <objc/runtime.h>
 #import <CXFoundation/CXFoundation.h>
-#import "UIScreen+CXExtensions.h"
+#import "UIScreen+CXUIKit.h"
 #import "CXAlertControllerUtils.h"
 #import "CXAppUtils.h"
 #import <sys/mount.h>
@@ -19,7 +19,7 @@
 #define CX_UI_DEVICE_IDENTIFIER_KEY    @"device.identifier"
 #define CX_UI_DEVICE_KEYCHAIN_SERVICE  @"com.uikit.cx.keychain"
 
-@implementation UIDevice (CXExtensions)
+@implementation UIDevice (CXUIKit)
 
 - (void)cx_callPhone:(NSString *)phone{
     if(CXStringIsEmpty(phone)){

@@ -1,5 +1,5 @@
 //
-//  UILabel+CXExtensions.h
+//  UILabel+CXUIKit.h
 //  Pods
 //
 //  Created by wshaolin on 2017/6/14.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UILabel (CXExtensions)
+@interface UILabel (CXUIKit)
 
 - (void)cx_setAttributedText:(NSString *)attributedText;
 

@@ -1,16 +1,16 @@
 //
-//  NSAttributedString+CXExtensions.m
+//  NSAttributedString+CXUIKit.m
 //  Pods
 //
 //  Created by wshaolin on 2017/6/15.
 //
 //
 
-#import "NSAttributedString+CXExtensions.h"
+#import "NSAttributedString+CXUIKit.h"
 #import <CXFoundation/CXFoundation.h>
-#import "UIFont+CXExtensions.h"
+#import "UIFont+CXUIKit.h"
 
-@implementation NSAttributedString (CXExtensions)
+@implementation NSAttributedString (CXUIKit)
 
 + (NSAttributedString *)cx_attributedString:(NSString *)string
                            highlightedColor:(UIColor *)highlightedColor
