@@ -17,7 +17,7 @@
 #import <mach/mach.h>
 
 #define CX_UI_DEVICE_IDENTIFIER_KEY    @"device.identifier"
-#define CX_UI_DEVICE_KEYCHAIN_SERVICE  @"com.uikit.cx.keychain"
+#define CX_UI_DEVICE_KEYCHAIN_SERVICE  @"cx.uikit.keychain"
 
 @implementation UIDevice (CXUIKit)
 
@@ -52,13 +52,13 @@
 }
 
 - (NSString *)cx_identifier{
-    NSString *identifier = [CXUKeychain stringForKey:CX_UI_DEVICE_IDENTIFIER_KEY
-                                             service:CX_UI_DEVICE_KEYCHAIN_SERVICE];
+    NSString *identifier = [CXKeychain stringForKey:CX_UI_DEVICE_IDENTIFIER_KEY
+                                            service:CX_UI_DEVICE_KEYCHAIN_SERVICE];
     if(!identifier){
         identifier = [CXUCryptor SHA1:self.identifierForVendor.UUIDString];
-        [CXUKeychain setValue:identifier
-                       forKey:CX_UI_DEVICE_IDENTIFIER_KEY
-                      service:CX_UI_DEVICE_KEYCHAIN_SERVICE];
+        [CXKeychain setValue:identifier
+                      forKey:CX_UI_DEVICE_IDENTIFIER_KEY
+                     service:CX_UI_DEVICE_KEYCHAIN_SERVICE];
     }
     
     return identifier;
