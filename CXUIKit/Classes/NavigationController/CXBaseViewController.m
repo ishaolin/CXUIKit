@@ -41,7 +41,7 @@
     _isAnimating = NO;
     self.displaying = YES;
     
-    [self recordDataWithViewAppear:_displaying];
+    [self recordDataWithViewAppear:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -65,7 +65,8 @@
 }
 
 - (void)recordDataWithViewAppear:(BOOL)viewAppear{
-    CXDataRecordX([self viewAppearOrDisappearRecordDataKey], [self viewAppearOrDisappearRecordDataParams]);
+    CXDataRecordX([self viewAppearOrDisappearRecordDataKey],
+                  [self viewAppearOrDisappearRecordDataParams]);
 }
 
 - (void)viewDidLoad {
@@ -74,13 +75,10 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor whiteColor];
     
-    UIStatusBarStyle statusBarStyle = [self preferredStatusBarStyle];
-    if(statusBarStyle != CXNavigationBarDefaultStyle()){
-        [_navigationBar setUpdateStyle:statusBarStyle];
-    }
+    [_navigationBar setUpdateStyle:[self preferredStatusBarStyle]];
     [self.view addSubview:_navigationBar];
     
-    [self handleBackBarButtonImageUpdate];
+    [self setNeedsBackBarButtonImageUpdate];
     [self registerApplicationNotificationObserver];
 }
 
@@ -97,6 +95,12 @@
     [NSNotificationCenter addObserver:self
                                action:@selector(willResignActiveNotification:)
                                  name:UIApplicationWillResignActiveNotification];
+    [NSNotificationCenter addObserver:self
+                               action:@selector(willChangeStatusBarOrientationNotification:)
+                                 name:UIApplicationWillChangeStatusBarOrientationNotification];
+    [NSNotificationCenter addObserver:self
+                               action:@selector(didChangeStatusBarOrientationNotification:)
+                                 name:UIApplicationDidChangeStatusBarOrientationNotification];
 }
 
 - (void)willEnterForegroundNotification:(NSNotification *)notification{
@@ -112,6 +116,14 @@
 }
 
 - (void)didBecomeActiveNotification:(NSNotification *)notification{
+    
+}
+
+- (void)willChangeStatusBarOrientationNotification:(NSNotification *)notification{
+    
+}
+
+- (void)didChangeStatusBarOrientationNotification:(NSNotification *)notification{
     
 }
 
@@ -138,7 +150,7 @@
 }
 
 - (void)didClickBackBarButtonItem:(CXBarButtonItem *)backBarButtonItem{
-    if(self.navigationController){
+    if(self.navigationController != nil){
         [self.navigationController popViewControllerAnimated:YES];
     }else{
         [self dismissViewControllerAnimated:YES completion:nil];
@@ -155,7 +167,7 @@
 }
 
 - (void)dismissAnimated:(BOOL)animated completion:(void (^)(void))completion{
-    if(self.navigationController){
+    if(self.navigationController != nil){
         [self.navigationController dismissViewControllerAnimated:animated completion:completion];
     }else{
         [self dismissViewControllerAnimated:animated completion:completion];
@@ -166,7 +178,7 @@
     return nil;
 }
 
-- (void)handleBackBarButtonImageUpdate{
+- (void)setNeedsBackBarButtonImageUpdate{
     UIImage *image = [self backBarButtonImage];
     if(!image){
         return;
@@ -182,7 +194,7 @@
 }
 
 - (BOOL)prefersStatusBarHidden{
-    return self.isStatusBarHidden;
+    return _statusBarHidden;
 }
 
 - (void)setStatusBarHidden:(BOOL)statusBarHidden{

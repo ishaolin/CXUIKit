@@ -17,7 +17,6 @@ typedef NS_ENUM(NSInteger, CXAnimatedTransitioningStyle){
 @protocol CXAnimatedTransitioningSupporter <NSObject>
 
 @required
-
 - (CXAnimatedTransitioningStyle)animatedTransitioningStyle;
 
 @end
@@ -27,12 +26,9 @@ typedef NS_ENUM(NSInteger, CXAnimatedTransitioningStyle){
 @interface CXBaseViewController : UIViewController <CXGesturePopInteractionDelegate>
 
 @property (nonatomic, assign, getter = isStatusBarHidden) BOOL statusBarHidden;
-
+@property (nonatomic, assign, getter = isDisplaying) BOOL displaying;
 @property (nonatomic, assign, readonly) BOOL isAnimating;
 @property (nonatomic, strong, readonly) CXNavigationBar *navigationBar;
-
-@property (nonatomic, assign, getter = isDisplaying) BOOL displaying;
-
 @property (nonatomic, copy) NSString *subtitle;
 
 /*!
@@ -42,6 +38,8 @@ typedef NS_ENUM(NSInteger, CXAnimatedTransitioningStyle){
  *  UIApplicationWillResignActiveNotification
  *  UIApplicationDidEnterBackgroundNotification
  *  UIApplicationDidBecomeActiveNotification
+ *  UIApplicationWillChangeStatusBarOrientationNotification
+ *  UIApplicationDidChangeStatusBarOrientationNotification
  */
 - (void)registerApplicationNotificationObserver;
 
@@ -53,6 +51,8 @@ typedef NS_ENUM(NSInteger, CXAnimatedTransitioningStyle){
 - (void)willResignActiveNotification:(NSNotification *)notification;
 - (void)didEnterBackgroundNotification:(NSNotification *)notification;
 - (void)didBecomeActiveNotification:(NSNotification *)notification;
+- (void)willChangeStatusBarOrientationNotification:(NSNotification *)notification;
+- (void)didChangeStatusBarOrientationNotification:(NSNotification *)notification;
 
 /*!
  *  @brief 数据埋点的事件（页面显示与消失）id，需要子类重写并返回对应的id，否则无埋点

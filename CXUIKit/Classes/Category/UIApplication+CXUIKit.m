@@ -26,7 +26,7 @@
     return window;
 }
 
-- (void)cx_createWindow:(id)delegate scene:(id)scene rootViewController:(UIViewController *)rootViewController{
+- (UIWindow *)cx_createWindow:(id)delegate scene:(id)scene rootViewController:(UIViewController *)rootViewController{
     UIWindow *window = nil;
     if (@available(iOS 13.0, *)) {
         UIWindowScene *windowScene = (UIWindowScene *)scene;
@@ -41,6 +41,7 @@
     window.backgroundColor = [UIColor whiteColor];
     window.rootViewController = rootViewController;
     [window makeKeyAndVisible];
+    return window;
 }
 
 - (UIViewController *)cx_visibleViewController{
@@ -55,7 +56,7 @@
         viewController = navigationController.visibleViewController;
     }
     
-    while (viewController.presentedViewController) {
+    while (viewController.presentedViewController != nil) {
         viewController = viewController.presentedViewController;
     }
     

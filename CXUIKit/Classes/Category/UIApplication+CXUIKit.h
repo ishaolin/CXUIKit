@@ -11,9 +11,9 @@
 
 - (UIWindow *)cx_activeWindow;
 
-- (void)cx_createWindow:(id)delegate
-                  scene:(id)scene
-     rootViewController:(UIViewController *)rootViewController;
+- (UIWindow *)cx_createWindow:(id)delegate
+                        scene:(id)scene
+           rootViewController:(UIViewController *)rootViewController;
 
 - (UIViewController *)cx_visibleViewController;
 
