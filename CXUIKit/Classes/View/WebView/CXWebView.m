@@ -14,6 +14,24 @@
 
 #define CX_WKWEBVIEW_KVO_PROGRESS @"estimatedProgress"
 
+static NSString *_CXUserAgentAppending = nil;
+
+static inline WKWebViewConfiguration *_CXUserAgentConfiguration(WKWebViewConfiguration *configuration){
+    if(CXStringIsEmpty(_CXUserAgentAppending)){
+        return configuration;
+    }
+    
+    NSString *userAgent = configuration.applicationNameForUserAgent;
+    if(CXStringIsEmpty(userAgent)){
+        userAgent = _CXUserAgentAppending;
+    }else{
+        userAgent = [NSString stringWithFormat:@"%@ %@", userAgent, _CXUserAgentAppending];
+    }
+    
+    configuration.applicationNameForUserAgent = userAgent;
+    return configuration;
+}
+
 static inline NSString *_CXWebViewScalesPageToFitScript(){
     static NSString *javaScript = @CX_WEBVIEW_CODE_SOURCE(;(function (_name, _content) {
         var meta = document.getElementsByTagName('meta')[_name];
@@ -76,7 +94,6 @@ static inline NSString *_CXWebViewBridgeReadyScript(){
 @interface CXWebView ()<WKNavigationDelegate, WKUIDelegate> {
     CXWebViewProgressBar *_progressBar;
     CXWebViewJavaScriptBridge *_bridge;
-    NSMutableArray<NSString *> *_javaScripts;
 }
 
 @end
@@ -84,7 +101,7 @@ static inline NSString *_CXWebViewBridgeReadyScript(){
 @implementation CXWebView
 
 - (instancetype)initWithFrame:(CGRect)frame configuration:(WKWebViewConfiguration *)configuration{
-    if(self = [super initWithFrame:CGRectZero configuration:configuration]){
+    if(self = [super initWithFrame:CGRectZero configuration:_CXUserAgentConfiguration(configuration)]){
         [self setup];
     }
     
@@ -324,10 +341,6 @@ static inline NSString *_CXWebViewBridgeReadyScript(){
 - (void)webViewDidFinishLoad{
     [_bridge webViewDidFinishLoad];
     
-    [_javaScripts enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [self evaluateJavaScript:obj];
-    }];
-    
     if([_delegate respondsToSelector:@selector(webViewDidFinishLoad:)]){
         [_delegate webViewDidFinishLoad:self];
     }
@@ -369,29 +382,6 @@ static inline NSString *_CXWebViewBridgeReadyScript(){
 
 @end
 
-void CXWebViewUserAgentAppending(NSString *userAgent){
-    if(CXStringIsEmpty(userAgent)){
-        return;
-    }
-    
-    @autoreleasepool{
-        static WKWebView *webView = nil;
-        if(webView == nil){
-            webView = [[WKWebView alloc] init];
-        }
-        
-        [webView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id data, NSError *error) {
-            if(data){
-                NSString *customUserAgent = [data stringByAppendingFormat:@"%@ %@", data, userAgent];
-                [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"UserAgent" : customUserAgent}];
-                [[NSUserDefaults standardUserDefaults] synchronize];
-                
-                if(@available(iOS 9.0, *)){
-                    webView.customUserAgent = customUserAgent;
-                }
-            }
-            
-            webView = nil;
-        }];
-    }
+void CXWebViewUserAgentAppending(NSString *userAgentAppending){
+    _CXUserAgentAppending = userAgentAppending;
 }

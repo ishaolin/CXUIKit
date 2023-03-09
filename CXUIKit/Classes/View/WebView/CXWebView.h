@@ -49,4 +49,4 @@
 
 @end
 
-CX_UIKIT_EXTERN void CXWebViewUserAgentAppending(NSString *string);
+CX_UIKIT_EXTERN void CXWebViewUserAgentAppending(NSString *userAgentAppending);
