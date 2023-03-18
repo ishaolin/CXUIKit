@@ -31,7 +31,7 @@ typedef NS_ENUM(NSInteger, CXImagePlayerScrollOrietation){
 @implementation CXImagePlayer
 
 - (instancetype)initWithPageControlPosition:(CXImagePlayerPageControlPosition)position{
-    return [self initWithPageControlPosition:position imageViewClass:NULL];
+    return [self initWithPageControlPosition:position imageViewClass:UIImageView.class];
 }
 
 - (instancetype)initWithPageControlPosition:(CXImagePlayerPageControlPosition)position imageViewClass:(Class)imageViewClass{
@@ -49,20 +49,15 @@ typedef NS_ENUM(NSInteger, CXImagePlayerScrollOrietation){
         _pageControl = [[UIPageControl alloc] init];
         [self addSubview:_pageControl];
         
-        Class imageViewCls = imageViewClass;
-        if(!imageViewCls){
-            imageViewCls = [UIImageView class];
-        }
-        
-        _imageView1 = [[imageViewCls alloc] init];
+        _imageView1 = [[imageViewClass alloc] init];
         _imageView1.userInteractionEnabled = YES;
         [_imageView1 addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleImageViewTapGestureRecognizer:)]];
         
-        _imageView2 = [[imageViewCls alloc] init];
+        _imageView2 = [[imageViewClass alloc] init];
         _imageView2.userInteractionEnabled = YES;
         [_imageView2 addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleImageViewTapGestureRecognizer:)]];
         
-        _imageView3 = [[imageViewCls alloc] init];
+        _imageView3 = [[imageViewClass alloc] init];
         _imageView3.userInteractionEnabled = YES;
         [_imageView3 addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleImageViewTapGestureRecognizer:)]];
         
@@ -268,24 +263,19 @@ typedef NS_ENUM(NSInteger, CXImagePlayerScrollOrietation){
 - (void)layoutSubviews{
     [super layoutSubviews];
     
-    CGRect frame = self.bounds;
-    _scrollView.frame = frame;
-    _imageView1.frame = frame;
-    
-    frame.origin.x = CGRectGetMaxX(_imageView1.frame);
-    _imageView2.frame = frame;
-    
-    frame.origin.x = CGRectGetMaxX(_imageView2.frame);
-    _imageView3.frame = frame;
+    _scrollView.frame = self.bounds;
+    _imageView1.frame = _scrollView.bounds;
+    _imageView2.frame = CGRectOffset(_imageView1.frame, CGRectGetWidth(_scrollView.frame), 0);
+    _imageView3.frame = CGRectOffset(_imageView2.frame, CGRectGetWidth(_scrollView.frame), 0);
     
     CGFloat pageControl_H = 20.0;
-    CGFloat pageControl_W = MIN(CGRectGetWidth(frame) - 20.0, [_pageControl sizeForNumberOfPages:_pageControl.numberOfPages].width);
+    CGFloat pageControl_W = MIN(CGRectGetWidth(self.bounds) - 20.0, [_pageControl sizeForNumberOfPages:_pageControl.numberOfPages].width);
     CGFloat pageControl_X = [self pageControlFrameXWithWidth:pageControl_W];
-    CGFloat pageControl_Y = CGRectGetHeight(frame) - pageControl_H;
+    CGFloat pageControl_Y = CGRectGetHeight(self.bounds) - pageControl_H - 10.0;
     _pageControl.frame = (CGRect){pageControl_X, pageControl_Y, pageControl_W, pageControl_H};
     
-    _scrollView.contentSize = (CGSize){CGRectGetWidth(frame) * 3, 0};
-    _scrollView.contentOffset = CGPointMake(CGRectGetWidth(frame), 0);
+    _scrollView.contentSize = (CGSize){CGRectGetWidth(self.bounds) * 3, 0};
+    _scrollView.contentOffset = CGPointMake(CGRectGetWidth(self.bounds), 0);
 }
 
 @end

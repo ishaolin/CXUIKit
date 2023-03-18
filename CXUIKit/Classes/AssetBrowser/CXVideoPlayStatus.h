@@ -13,7 +13,7 @@ typedef NS_ENUM(NSInteger, CXVideoPlayStatus){
     CXVideoPlayStatusReadyToPlay,           // 等待播放
     CXVideoPlayStatusPlaying,               // 播放中
     CXVideoPlayStatusPaused,                // 暂停状态
-    CXVideoPlayStatusEndOfPlay              // 播放结束
+    CXVideoPlayStatusPlayEnd                // 播放结束
 };
 
 #endif /* CXVideoPlayStatus_h */

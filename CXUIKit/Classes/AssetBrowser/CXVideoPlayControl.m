@@ -74,7 +74,7 @@
     switch (_playStatus) {
         case CXVideoPlayStatusLoading:
         case CXVideoPlayStatusReadyToPlay:
-        case CXVideoPlayStatusEndOfPlay:
+        case CXVideoPlayStatusPlayEnd:
         case CXVideoPlayStatusPaused:{
             [_playButton setImage:CX_UIKIT_IMAGE(@"ui_video_control_play") forState:UIControlStateNormal];
         }

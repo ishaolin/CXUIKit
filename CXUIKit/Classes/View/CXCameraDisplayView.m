@@ -6,7 +6,7 @@
 //
 
 #import "CXCameraDisplayView.h"
-#import "CXSystemAdapter.h"
+#import "UIActivityIndicatorView+CXUIKit.h"
 
 @interface CXCameraDisplayView () <AVCaptureVideoDataOutputSampleBufferDelegate> {
     AVCaptureDevice *_captureDevice;
@@ -237,7 +237,7 @@
     _previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
     [self.layer addSublayer:_previewLayer];
     
-    _indicatorView = [CXSystemAdapter largeActivityIndicatorView];
+    _indicatorView = [UIActivityIndicatorView largeIndicatorView];
     _indicatorView.center = _indicatorViewCenterPoint;
     [_indicatorView startAnimating];
     [self addSubview:_indicatorView];

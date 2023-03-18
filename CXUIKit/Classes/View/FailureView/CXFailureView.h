@@ -1,18 +1,18 @@
 //
-//  CXPageErrorView.h
+//  CXFailureView.h
 //  Pods
 //
 //  Created by wshaolin on 2019/4/17.
 //
 
-#import "CXPageErrorViewDefinition.h"
+#import "CXFailureViewDefinition.h"
 
-@interface CXPageErrorView : UIView<CXPageErrorViewDefinition>
+@interface CXFailureView : UIView<CXFailureViewDefinition>
 
 @property (nonatomic, strong, readonly) UIImageView *imageView;
 @property (nonatomic, strong, readonly) UILabel *textLabel;
 @property (nonatomic, strong, readonly) UIButton *refreshButton;
 
-@property (nonatomic, weak) id<CXPageErrorViewDelegate> delegate;
+@property (nonatomic, weak) id<CXFailureViewDelegate> delegate;
 
 @end

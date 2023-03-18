@@ -5,14 +5,14 @@
 //  Created by wshaolin on 2019/10/16.
 //
 
-#import "CXErrorViewController.h"
+#import "CXFailureViewController.h"
 #import "CXWebView.h"
 
 @class CXWebView;
 
 typedef NSString *CXBridgeBarItemAction;
 
-@interface CXWebViewController : CXErrorViewController
+@interface CXWebViewController : CXFailureViewController
 
 @property (nonatomic, strong, readonly) NSURLRequest *currentRequest;
 @property (nonatomic, strong, readonly) UIScrollView *scrollView;

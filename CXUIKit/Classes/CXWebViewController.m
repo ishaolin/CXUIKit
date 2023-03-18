@@ -10,7 +10,7 @@
 #import "UIColor+CXUIKit.h"
 #import "UIImage+CXUIKit.h"
 #import "UIDevice+CXUIKit.h"
-#import "CXPageErrorView.h"
+#import "CXFailureView.h"
 #import "CXDataRecord.h"
 #import <objc/runtime.h>
 
@@ -212,7 +212,7 @@
 }
 
 - (void)webViewDidFinishLoad:(CXWebView *)webView{
-    [self hideErrorView];
+    [self hideFailureView];
     
     [webView evaluateJavaScript:@"document.title" completionHandler:^(id data, NSError *error) {
         NSLog(@"document.title = %@", data);
@@ -222,7 +222,7 @@
         
         self.title = (NSString *)data;
         if([self.title isEqualToString:@"404 Not Found"]){
-            [self showErrorViewWithCode:2];
+            [self showFailureViewWithCode:2];
         }
     }];
 }
@@ -232,26 +232,26 @@
         return;
     }
     
-    [self showErrorViewWithError:error];
+    [self showFailureViewWithError:error];
 }
 
 - (void)webView:(CXWebView *)webView didLongPressImage:(UIImage *)image{
     
 }
 
-- (void)addErrorView:(UIView<CXPageErrorViewDefinition> *)errorView toView:(UIView *)view{
-    errorView.frame = _webView.bounds;
-    errorView.backgroundColor = _webView.backgroundColor ?: [UIColor whiteColor];
-    [_webView addSubview:errorView];
+- (void)addFailureView:(UIView<CXFailureViewDefinition> *)failureView toView:(UIView *)view{
+    failureView.frame = _webView.bounds;
+    failureView.backgroundColor = _webView.backgroundColor ?: [UIColor whiteColor];
+    [_webView addSubview:failureView];
     [_webView bringProgressBarToFront];
 }
 
-- (void)pageErrorViewDidNeedsReload:(UIView<CXPageErrorViewDefinition> *)errorView{
-    [self hideErrorView];
+- (void)failureViewDidNeedsReload:(UIView<CXFailureViewDefinition> *)failureView{
+    [self hideFailureView];
     [self reloadRequest:_currentRequest];
 }
 
-- (void)pageErrorView:(UIView<CXPageErrorViewDefinition> *)errorView showErrorWithPageTitle:(NSString *)pageTitle{
+- (void)failureView:(UIView<CXFailureViewDefinition> *)failureView showWithPageTitle:(NSString *)pageTitle{
     if(pageTitle){
         self.navigationBar.navigationItem.titleView.title = pageTitle;
     }

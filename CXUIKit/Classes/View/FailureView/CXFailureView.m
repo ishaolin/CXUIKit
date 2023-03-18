@@ -1,11 +1,11 @@
 //
-//  CXPageErrorView.m
+//  CXFailureView.m
 //  Pods
 //
 //  Created by wshaolin on 2019/4/17.
 //
 
-#import "CXPageErrorView.h"
+#import "CXFailureView.h"
 #import "UIColor+CXUIKit.h"
 #import "UIFont+CXUIKit.h"
 #import "UIButton+CXUIKit.h"
@@ -13,14 +13,14 @@
 #import "CXUIUtils.h"
 #import "CXStringBounding.h"
 
-@implementation CXPageErrorView
+@implementation CXFailureView
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if(self = [super initWithFrame:frame]){
         self.backgroundColor = [UIColor whiteColor];
         
         _imageView = [[UIImageView alloc] init];
-        _imageView.image = CX_UIKIT_IMAGE(@"ui_page_error_image");
+        _imageView.image = CX_UIKIT_IMAGE(@"ui_page_failure_image");
         
         _textLabel = [[UILabel alloc] init];
         _textLabel.font = CX_PingFangSC_RegularFont(14.0);
@@ -52,11 +52,11 @@
 - (void)showWithError:(NSError *)error{
     switch (error.code) {
         case NSURLErrorBadURL:{
-            [self showWithErrorCode:CXPageErrorCodeBadURL];
+            [self showWithFailureCode:CXFailureCodeBadURL];
         }
             break;
         case NSURLErrorTimedOut:{
-            [self showWithErrorCode:CXPageErrorCodeTimedOut];
+            [self showWithFailureCode:CXFailureCodeTimedOut];
         }
             break;
         case NSURLErrorNetworkConnectionLost:
@@ -64,40 +64,40 @@
         case NSURLErrorCannotConnectToHost:
         case NSURLErrorNotConnectedToInternet:
         case NSURLErrorDNSLookupFailed:{
-            [self showWithErrorCode:CXPageErrorCodeInternetUnavailable];
+            [self showWithFailureCode:CXFailureCodeInternetUnavailable];
         }
             break;
         default:{
             if(error.code != NSURLErrorCancelled){
-                [self showWithErrorCode:CXPageErrorCodeInternetUnavailable];
+                [self showWithFailureCode:CXFailureCodeInternetUnavailable];
             }
         }
             break;
     }
 }
 
-- (void)showWithErrorCode:(CXPageErrorCode)errorCode{
+- (void)showWithFailureCode:(CXFailureCode)code{
     NSString *title = nil;
-    switch (errorCode) {
-        case CXPageErrorCodeTimedOut:{
+    switch (code) {
+        case CXFailureCodeTimedOut:{
             title = @"服务器繁忙";
             _textLabel.text = [NSString stringWithFormat:@"%@\n请点击刷新进行重试", title];
             _refreshButton.hidden = NO;
         }
             break;
-        case CXPageErrorCodeInternetUnavailable:{
+        case CXFailureCodeInternetUnavailable:{
             title = @"网络异常";
             _textLabel.text = [NSString stringWithFormat:@"%@\n请点击刷新进行重试", title];
             _refreshButton.hidden = NO;
         }
             break;
-        case CXPageErrorCodeBadURL:{
+        case CXFailureCodeBadURL:{
             title = @"找不到页面";
             _textLabel.text = [NSString stringWithFormat:@"%@\n请稍后重试", title];
             _refreshButton.hidden = YES;
         }
             break;
-        case CXPageErrorCodeNoData:{
+        case CXFailureCodeNoData:{
             title = @"暂无数据";
             _textLabel.text = [NSString stringWithFormat:@"%@\n请点击按钮刷新", title];
             _refreshButton.hidden = NO;
@@ -113,16 +113,16 @@
     
     self.hidden = NO;
     
-    if([self.delegate respondsToSelector:@selector(pageErrorView:showErrorWithPageTitle:)]){
-        [self.delegate pageErrorView:self showErrorWithPageTitle:title];
+    if([self.delegate respondsToSelector:@selector(failureView:showWithPageTitle:)]){
+        [self.delegate failureView:self showWithPageTitle:title];
     }
     
     [self setNeedsLayout];
 }
 
 - (void)handleActionForRefreshButton:(UIButton *)refreshButton{
-    if([self.delegate respondsToSelector:@selector(pageErrorViewDidNeedsReload:)]){
-        [self.delegate pageErrorViewDidNeedsReload:self];
+    if([self.delegate respondsToSelector:@selector(failureViewDidNeedsReload:)]){
+        [self.delegate failureViewDidNeedsReload:self];
     }
 }
 

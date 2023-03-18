@@ -11,47 +11,15 @@
 #define CX_I_0xFF  0xFF
 #define CX_F_0xFF  (CX_I_0xFF * 1.0)
 
-static inline unsigned _CXColorComponentFromString(NSString *colorString, NSRange range){
-    NSString *string = [colorString substringWithRange:range];
+static inline unsigned CXColorRGBValueFromString(NSString *string, NSRange range){
+    string = [string substringWithRange:range];
     if(range.length == 1){
         string = [NSString stringWithFormat:@"%@%@", string, string];
     }
     
-    unsigned intValue = 0;
-    [[NSScanner scannerWithString:string] scanHexInt:&intValue];
-    
-    return intValue;
-}
-
-static inline NSString *_CXHexStringFromAlgorism(NSUInteger algorism){
-    NSUInteger n = 0xF + 1;
-    NSUInteger i = algorism / n;
-    NSUInteger remainder = algorism % n;
-    
-    NSArray<NSString *> *hexArray = @[@"0", @"1", @"2", @"3", @"4", @"5",
-                                      @"6", @"7", @"8", @"9", @"A", @"B",
-                                      @"C", @"D", @"E", @"F"];
-    NSString *iString = nil;
-    if(i > n){
-        iString = _CXHexStringFromAlgorism(i);
-    }else{
-        iString = hexArray[i];
-    }
-    
-    if(remainder == 0){
-        return iString;
-    }
-    
-    return [NSString stringWithFormat:@"%@%@", iString, hexArray[remainder]];
-}
-
-static inline NSString *_CXColorHexStringFromAlgorism(NSUInteger algorism){
-    NSString *hexString = _CXHexStringFromAlgorism(algorism);
-    if(hexString.length > 1){
-        return hexString;
-    }
-    
-    return [NSString stringWithFormat:@"0%@", hexString];
+    unsigned value = 0;
+    [[NSScanner scannerWithString:string] scanHexInt:&value];
+    return value;
 }
 
 @implementation UIColor (CXUIKit)
@@ -66,34 +34,34 @@ static inline NSString *_CXColorHexStringFromAlgorism(NSUInteger algorism){
     return [self cx_colorWithColorRGB:colorRGB];
 }
 
-+ (UIColor *)cx_colorWithHexString:(NSString *)hexString{
++ (UIColor *)cx_colorWithHexString:(NSString *)string{
     CXColorRGB colorRGB = CXColorRGBMake(0, 0, 0, 1.0);
-    NSString *_hexString = [hexString stringByReplacingOccurrencesOfString:@"#" withString:@""];
-    switch(_hexString.length){
+    string = [string stringByReplacingOccurrencesOfString:@"#" withString:@""];
+    switch(string.length){
         case 3:{
-            colorRGB.r = _CXColorComponentFromString(_hexString, (NSRange){0, 1});
-            colorRGB.g = _CXColorComponentFromString(_hexString, (NSRange){1, 1});
-            colorRGB.b = _CXColorComponentFromString(_hexString, (NSRange){2, 1});
+            colorRGB.r = CXColorRGBValueFromString(string, (NSRange){0, 1});
+            colorRGB.g = CXColorRGBValueFromString(string, (NSRange){1, 1});
+            colorRGB.b = CXColorRGBValueFromString(string, (NSRange){2, 1});
         }
             break;
         case 4:{
-            colorRGB.a = _CXColorComponentFromString(_hexString, (NSRange){0, 1}) / CX_F_0xFF;
-            colorRGB.r = _CXColorComponentFromString(_hexString, (NSRange){1, 1});
-            colorRGB.g = _CXColorComponentFromString(_hexString, (NSRange){2, 1});
-            colorRGB.b = _CXColorComponentFromString(_hexString, (NSRange){3, 1});
+            colorRGB.a = CXColorRGBValueFromString(string, (NSRange){0, 1}) / CX_F_0xFF;
+            colorRGB.r = CXColorRGBValueFromString(string, (NSRange){1, 1});
+            colorRGB.g = CXColorRGBValueFromString(string, (NSRange){2, 1});
+            colorRGB.b = CXColorRGBValueFromString(string, (NSRange){3, 1});
         }
             break;
         case 6:{
-            colorRGB.r = _CXColorComponentFromString(_hexString, (NSRange){0, 2});
-            colorRGB.g = _CXColorComponentFromString(_hexString, (NSRange){2, 2});
-            colorRGB.b = _CXColorComponentFromString(_hexString, (NSRange){4, 2});
+            colorRGB.r = CXColorRGBValueFromString(string, (NSRange){0, 2});
+            colorRGB.g = CXColorRGBValueFromString(string, (NSRange){2, 2});
+            colorRGB.b = CXColorRGBValueFromString(string, (NSRange){4, 2});
         }
             break;
         case 8:{
-            colorRGB.a = _CXColorComponentFromString(_hexString, (NSRange){0, 2}) / CX_F_0xFF;
-            colorRGB.r = _CXColorComponentFromString(_hexString, (NSRange){2, 2});
-            colorRGB.g = _CXColorComponentFromString(_hexString, (NSRange){4, 2});
-            colorRGB.b = _CXColorComponentFromString(_hexString, (NSRange){6, 2});
+            colorRGB.a = CXColorRGBValueFromString(string, (NSRange){0, 2}) / CX_F_0xFF;
+            colorRGB.r = CXColorRGBValueFromString(string, (NSRange){2, 2});
+            colorRGB.g = CXColorRGBValueFromString(string, (NSRange){4, 2});
+            colorRGB.b = CXColorRGBValueFromString(string, (NSRange){6, 2});
         }
             break;
         default:
@@ -125,12 +93,13 @@ static inline NSString *_CXColorHexStringFromAlgorism(NSUInteger algorism){
 
 - (NSString *)cx_hexString{
     CXColorRGB colorRGB = [self cx_colorRGB];
+    NSUInteger value = 0;
+    if(colorRGB.a < 1){
+        value = ((NSInteger)(colorRGB.a * CX_I_0xFF)) << 24;
+    }
     
-    return [NSString stringWithFormat:@"#%@%@%@%@",
-            _CXColorHexStringFromAlgorism(colorRGB.a * CX_I_0xFF),
-            _CXColorHexStringFromAlgorism(colorRGB.r),
-            _CXColorHexStringFromAlgorism(colorRGB.g),
-            _CXColorHexStringFromAlgorism(colorRGB.b)];
+    value += (colorRGB.r << 16) + (colorRGB.g << 8) + colorRGB.b;
+    return [NSString stringWithFormat:@"#%X", value];
 }
 
 @end

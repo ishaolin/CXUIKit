@@ -10,7 +10,7 @@
 #import "UIFont+CXUIKit.h"
 #import "UIView+CXUIKit.h"
 #import "UIApplication+CXUIKit.h"
-#import "CXSystemAdapter.h"
+#import "UIActivityIndicatorView+CXUIKit.h"
 
 static CXHUDBackgroundStyle _HUDBackgroundStyle = CXHUDBackgroundStyleClear;
 
@@ -115,7 +115,7 @@ CXHUDBackgroundStyle CXGetHUDBackgroundStyle(void){
         _contentView.backgroundColor = CXHexIColor(0x4a4c5b);
         [self addSubview:_contentView];
         
-        _activityIndicatorView = [CXSystemAdapter whiteActivityIndicatorView];
+        _activityIndicatorView = [UIActivityIndicatorView whiteIndicatorView];
         [_contentView addSubview:_activityIndicatorView];
         
         _msgLabel = [[UILabel alloc] init];
@@ -285,15 +285,15 @@ CXHUDBackgroundStyle CXGetHUDBackgroundStyle(void){
 }
 
 + (CXHUD *)showMsg:(NSString *)msg HUDAddedTo:(UIView *)view completion:(void(^)(void))completion{
-    return [self showMsg:msg HUDAddedTo:view delay:2.0 completion:completion];
+    return [self showMsg:msg HUDAddedTo:view duration:2.0 completion:completion];
 }
 
-+ (CXHUD *)showMsg:(NSString *)msg HUDAddedTo:(UIView *)view delay:(NSTimeInterval)delay completion:(void(^)(void))completion{
++ (CXHUD *)showMsg:(NSString *)msg HUDAddedTo:(UIView *)view duration:(NSTimeInterval)duration completion:(void(^)(void))completion{
     CXHUD *HUD = [self showHUDAddedTo:view msg:msg animated:YES];
     HUD.indicatorEnabled = NO;
     HUD.autoDismiss = YES;
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self dismissForView:view completion:completion];
     });
     

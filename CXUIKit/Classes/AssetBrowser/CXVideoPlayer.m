@@ -12,7 +12,7 @@
 #import "UIColor+CXUIKit.h"
 #import "CXVideoPlayControl.h"
 #import "UIScreen+CXUIKit.h"
-#import "CXSystemAdapter.h"
+#import "UIActivityIndicatorView+CXUIKit.h"
 
 #define CX_KVO_KEYPATH_status @"status"
 #define CX_KVO_KEYPATH_loadedTimeRanges @"loadedTimeRanges"
@@ -48,7 +48,7 @@
         [_playButton addTarget:self action:@selector(handleActionForPlayButton:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_playButton];
         
-        _indicatorView = [CXSystemAdapter largeActivityIndicatorView];
+        _indicatorView = [UIActivityIndicatorView largeIndicatorView];
         _indicatorView.hidden = YES;
         [self addSubview:_indicatorView];
         
@@ -172,7 +172,7 @@
 - (void)stop{
     [self pause];
     
-    _playControl.playStatus = CXVideoPlayStatusEndOfPlay;
+    _playControl.playStatus = CXVideoPlayStatusPlayEnd;
     [self seekToTime:CMTimeMake(0, 1) completion:nil];
 }
 
@@ -192,7 +192,7 @@
 
 - (void)resume{
     if(_playControl.playStatus == CXVideoPlayStatusReadyToPlay ||
-       _playControl.playStatus == CXVideoPlayStatusEndOfPlay){
+       _playControl.playStatus == CXVideoPlayStatusPlayEnd){
         [self play];
     }else{
         if(@available(iOS 10.0, *)){
@@ -243,7 +243,7 @@
 
 - (void)playerItemDidPlayToEndTimeNotification:(NSNotification *)notification{
     [CXDispatchHandler asyncOnMainQueue:^{
-        self->_playControl.playStatus = CXVideoPlayStatusEndOfPlay;
+        self->_playControl.playStatus = CXVideoPlayStatusPlayEnd;
         self->_playControl.hidden = NO;
         self->_playButton.hidden = NO;
         [self seekToTime:CMTimeMake(0, 1) completion:nil];

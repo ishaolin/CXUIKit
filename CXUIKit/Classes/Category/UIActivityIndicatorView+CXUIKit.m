@@ -1,15 +1,15 @@
 //
-//  CXSystemAdapter.m
-//  Pods
+//  UIActivityIndicatorView+CXUIKit.m
+//  CXUIKit
 //
-//  Created by wshaolin on 2019/10/12.
+//  Created by Michael Lynn on 2023/3/18.
 //
 
-#import "CXSystemAdapter.h"
+#import "UIActivityIndicatorView+CXUIKit.h"
 
-@implementation CXSystemAdapter
+@implementation UIActivityIndicatorView (CXUIKit)
 
-+ (UIActivityIndicatorView *)largeActivityIndicatorView{
++ (UIActivityIndicatorView *)largeIndicatorView{
     UIActivityIndicatorViewStyle style;
     if(@available(iOS 13.0, *)){
         style = UIActivityIndicatorViewStyleLarge;
@@ -17,10 +17,10 @@
         style = UIActivityIndicatorViewStyleWhiteLarge;
     }
     
-    return [self activityIndicatorViewWithStyle:style color:[UIColor whiteColor]];
+    return [self indicatorViewWithStyle:style color:[UIColor whiteColor]];
 }
 
-+ (UIActivityIndicatorView *)whiteActivityIndicatorView{
++ (UIActivityIndicatorView *)whiteIndicatorView{
     UIActivityIndicatorViewStyle style;
     if(@available(iOS 13.0, *)){
         style = UIActivityIndicatorViewStyleMedium;
@@ -28,10 +28,10 @@
         style = UIActivityIndicatorViewStyleWhite;
     }
     
-    return [self activityIndicatorViewWithStyle:style color:[UIColor whiteColor]];
+    return [self indicatorViewWithStyle:style color:[UIColor whiteColor]];
 }
 
-+ (UIActivityIndicatorView *)grayActivityIndicatorView{
++ (UIActivityIndicatorView *)grayIndicatorView{
     UIActivityIndicatorViewStyle style;
     if(@available(iOS 13.0, *)){
         style = UIActivityIndicatorViewStyleMedium;
@@ -39,10 +39,10 @@
         style = UIActivityIndicatorViewStyleGray;
     }
     
-    return [self activityIndicatorViewWithStyle:style color:[UIColor grayColor]];
+    return [self indicatorViewWithStyle:style color:[UIColor grayColor]];
 }
 
-+ (UIActivityIndicatorView *)activityIndicatorViewWithStyle:(UIActivityIndicatorViewStyle)style color:(UIColor *)color{
++ (UIActivityIndicatorView *)indicatorViewWithStyle:(UIActivityIndicatorViewStyle)style color:(UIColor *)color{
     UIActivityIndicatorView *indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:style];
     if(@available(iOS 13.0, *)){
         indicatorView.color = color;

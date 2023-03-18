@@ -9,7 +9,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "CXZoomingView.h"
 #import "CXAlertControllerUtils.h"
-#import "CXSystemAdapter.h"
+#import "UIActivityIndicatorView+CXUIKit.h"
 
 @interface CXAssetBrowserImageCell () <CXZoomingViewDelegate> {
     UIScrollView *_contentView;
@@ -32,7 +32,7 @@
         _zoomingView.delegate = self;
         [self.containerView addSubview:_zoomingView];
         
-        _indicatorView = [CXSystemAdapter largeActivityIndicatorView];
+        _indicatorView = [UIActivityIndicatorView largeIndicatorView];
         [self addSubview:_indicatorView];
     }
     
