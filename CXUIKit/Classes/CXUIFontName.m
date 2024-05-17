@@ -29,14 +29,14 @@ CXUIFontName const CXUIFontNamePingFangTC_Regular = @"PingFangTC-Regular";
 CXUIFontName const CXUIFontNamePingFangTC_Medium = @"PingFangTC-Medium";
 CXUIFontName const CXUIFontNamePingFangTC_Semibold = @"PingFangTC-Semibold";
 
-CXUIFontName const CXUIFontNameHelvetica_ = @"Helvetica";
+CXUIFontName const CXUIFontNameHelvetica = @"Helvetica";
 CXUIFontName const CXUIFontNameHelvetica_Bold = @"Helvetica-Bold";
 CXUIFontName const CXUIFontNameHelvetica_BoldOblique = @"Helvetica-BoldOblique";
 CXUIFontName const CXUIFontNameHelvetica_Light = @"Helvetica-Light";
 CXUIFontName const CXUIFontNameHelvetica_LightOblique = @"Helvetica-LightOblique";
 CXUIFontName const CXUIFontNameHelvetica_Oblique = @"Helvetica-Oblique";
 
-CXUIFontName const CXUIFontNameHelveticaNeue_ = @"HelveticaNeue";
+CXUIFontName const CXUIFontNameHelveticaNeue = @"HelveticaNeue";
 CXUIFontName const CXUIFontNameHelveticaNeue_Bold = @"HelveticaNeue-Bold";
 CXUIFontName const CXUIFontNameHelveticaNeue_BoldItalic = @"HelveticaNeue-BoldItalic";
 CXUIFontName const CXUIFontNameHelveticaNeue_CondensedBlack = @"HelveticaNeue-CondensedBlack";
