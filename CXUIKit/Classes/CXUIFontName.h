@@ -38,14 +38,14 @@ CX_UIKIT_EXTERN CXUIFontName const CXUIFontNamePingFangTC_Regular;
 CX_UIKIT_EXTERN CXUIFontName const CXUIFontNamePingFangTC_Medium;
 CX_UIKIT_EXTERN CXUIFontName const CXUIFontNamePingFangTC_Semibold;
 
-CX_UIKIT_EXTERN CXUIFontName const CXUIFontNameHelvetica_;
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNameHelvetica;
 CX_UIKIT_EXTERN CXUIFontName const CXUIFontNameHelvetica_Bold;
 CX_UIKIT_EXTERN CXUIFontName const CXUIFontNameHelvetica_BoldOblique;
 CX_UIKIT_EXTERN CXUIFontName const CXUIFontNameHelvetica_Light;
 CX_UIKIT_EXTERN CXUIFontName const CXUIFontNameHelvetica_LightOblique;
 CX_UIKIT_EXTERN CXUIFontName const CXUIFontNameHelvetica_Oblique;
 
-CX_UIKIT_EXTERN CXUIFontName const CXUIFontNameHelveticaNeue_;
+CX_UIKIT_EXTERN CXUIFontName const CXUIFontNameHelveticaNeue;
 CX_UIKIT_EXTERN CXUIFontName const CXUIFontNameHelveticaNeue_Bold;
 CX_UIKIT_EXTERN CXUIFontName const CXUIFontNameHelveticaNeue_BoldItalic;
 CX_UIKIT_EXTERN CXUIFontName const CXUIFontNameHelveticaNeue_CondensedBlack;
